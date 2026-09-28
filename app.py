@@ -4,6 +4,8 @@ from pathlib import Path
 import requests
 import json
 from datetime import datetime, timezone
+import time
+
 # SANDHU
 app = Flask(__name__)
 
@@ -19,6 +21,10 @@ CONTACTS_FILE = DATA_DIR / "contacts.json"
 
 OPEN_METEO_FORECAST = "https://api.open-meteo.com/v1/forecast"
 OPEN_METEO_GEOCODING = "https://geocoding-api.open-meteo.com/v1/search"
+
+# Weather cache
+WEATHER_CACHE = {}
+WEATHER_CACHE_TTL = 600  # 10 minutes
 
 # SANDHU
 # =========================================================
@@ -222,7 +228,7 @@ def search_city():
 
 @app.get("/api/weather")
 def weather():
-# SANDHU
+
     latitude = request.args.get(
         "lat",
         type=float
@@ -239,116 +245,179 @@ def weather():
             "error": "Latitude and longitude are required."
         }), 400
 
+    # ---------------------------------------------------------
+    # CACHE KEY
+    # ---------------------------------------------------------
+
+    cache_key = (
+        round(latitude, 4),
+        round(longitude, 4)
+    )
+
+    # ---------------------------------------------------------
+    # RETURN CACHED WEATHER IF AVAILABLE
+    # ---------------------------------------------------------
+
+    cached = WEATHER_CACHE.get(cache_key)
+
+    if cached:
+
+        cached_data, cached_time = cached
+
+        if time.time() - cached_time < WEATHER_CACHE_TTL:
+
+            return jsonify(cached_data)
+
+    # ---------------------------------------------------------
+    # OPEN-METEO REQUEST
+    # ---------------------------------------------------------
+
+    params = {
+
+        "latitude": latitude,
+
+        "longitude": longitude,
+
+        "current": ",".join([
+
+            "temperature_2m",
+
+            "relative_humidity_2m",
+
+            "apparent_temperature",
+
+            "is_day",
+
+            "precipitation",
+
+            "rain",
+
+            "weather_code",
+
+            "cloud_cover",
+
+            "pressure_msl",
+
+            "surface_pressure",
+
+            "wind_speed_10m",
+
+            "wind_direction_10m",
+
+            "wind_gusts_10m"
+        ]),
+
+        "hourly": ",".join([
+
+            "visibility",
+
+            "temperature_2m",
+
+            "apparent_temperature",
+
+            "precipitation_probability",
+
+            "precipitation",
+
+            "relative_humidity_2m",
+
+            "cloud_cover",
+
+            "weather_code",
+
+            "wind_speed_10m"
+        ]),
+
+        "daily": ",".join([
+
+            "weather_code",
+
+            "temperature_2m_max",
+
+            "temperature_2m_min",
+
+            "apparent_temperature_max",
+
+            "apparent_temperature_min",
+
+            "sunrise",
+
+            "sunset",
+
+            "uv_index_max",
+
+            "precipitation_sum",
+
+            "precipitation_probability_max",
+
+            "wind_speed_10m_max"
+        ]),
+
+        "forecast_days": 7,
+
+        "timezone": "auto",
+
+        "temperature_unit": "celsius",
+
+        "wind_speed_unit": "kmh",
+
+        "precipitation_unit": "mm"
+    }
+
     try:
 
         response = requests.get(
             OPEN_METEO_FORECAST,
-
-            params={
-
-                "latitude": latitude,
-
-                "longitude": longitude,
-
-                "current": ",".join([
-
-                    "temperature_2m",
-
-                    "relative_humidity_2m",
-
-                    "apparent_temperature",
-
-                    "is_day",
-# SANDHU
-                    "precipitation",
-
-                    "rain",
-
-                    "weather_code",
-
-                    "cloud_cover",
-
-                    "pressure_msl",
-
-                    "surface_pressure",
-
-                    "wind_speed_10m",
-
-                    "wind_direction_10m",
-
-                    "wind_gusts_10m"
-                ]),
-
-                "hourly": ",".join([
-
-                    "visibility",
-
-                    "temperature_2m",
-
-                    "apparent_temperature",
-
-                    "precipitation_probability",
-
-                    "precipitation",
-
-                    "relative_humidity_2m",
-
-                    "cloud_cover",
-
-                    "weather_code",
-
-                    "wind_speed_10m"
-                ]),
-
-                "daily": ",".join([
-
-                    "weather_code",
-
-                    "temperature_2m_max",
-
-                    "temperature_2m_min",
-
-                    "apparent_temperature_max",
-
-                    "apparent_temperature_min",
-
-                    "sunrise",
-
-                    "sunset",
-
-                    "uv_index_max",
-
-                    "precipitation_sum",
-
-                    "precipitation_probability_max",
-
-                    "wind_speed_10m_max"
-                ]),
-
-                "forecast_days": 7,
-
-                "timezone": "auto",
-
-                "temperature_unit": "celsius",
-
-                "wind_speed_unit": "kmh",
-
-                "precipitation_unit": "mm"
-            },
-
-            timeout=12
+            params=params,
+            timeout=20
         )
+
+        # -----------------------------------------------------
+        # HANDLE RATE LIMIT
+        # -----------------------------------------------------
+
+        if response.status_code == 429:
+
+            # If old cached data exists, use it
+            if cached:
+
+                cached_data, cached_time = cached
+
+                return jsonify(cached_data)
+
+            return jsonify({
+                "error": "Weather service is temporarily busy. Please try again in a minute."
+            }), 429
 
         response.raise_for_status()
 
-        return jsonify(
-            response.json()
+        weather_data = response.json()
+
+        # -----------------------------------------------------
+        # SAVE RESPONSE IN CACHE
+        # -----------------------------------------------------
+
+        WEATHER_CACHE[cache_key] = (
+            weather_data,
+            time.time()
         )
+
+        return jsonify(weather_data)
 
     except requests.RequestException as error:
 
+        # -----------------------------------------------------
+        # FALLBACK TO OLD CACHE
+        # -----------------------------------------------------
+
+        if cached:
+
+            cached_data, cached_time = cached
+
+            return jsonify(cached_data)
+
         return jsonify({
-            "error": f"Weather service is unavailable: {error}"
+            "error": f"Weather service is temporarily unavailable. Please try again shortly."
         }), 502
 
 # SANDHU
