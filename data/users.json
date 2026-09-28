@@ -1,0 +1,9 @@
+[
+  {
+    "id": 1,
+    "name": "ANMOL SANDHU",
+    "email": "singhanmol0359@gmail.com",
+    "password_hash": "scrypt:32768:8:1$dnhVhHesHlMfQxWe$1d7daec750ab0e33cec8a99f1c6dfafb81e8639a4b4d29c6c9c52512747ee07ee29eb2155a349b99b8fc1795899a74ded8ce4530ff016b4de51477574f34172d",
+    "created_at": "2026-09-26T12:59:55.196246+00:00"
+  }
+]

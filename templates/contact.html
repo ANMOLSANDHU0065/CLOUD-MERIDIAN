@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Help Center | Cloud Meridian</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .help-page {
+            min-height: 100vh;
+            padding: 50px 20px 80px;
+            background:
+                radial-gradient(circle at top left, rgba(255, 218, 190, 0.55), transparent 35%),
+                radial-gradient(circle at bottom right, rgba(205, 238, 214, 0.55), transparent 35%),
+                #fffaf6;
+        }
+
+        .help-container {
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        .help-hero {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .help-badge {
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 30px;
+            background: #e8f6ec;
+            color: #3d8b55;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .help-hero h1 {
+            font-size: clamp(32px, 5vw, 56px);
+            margin: 0 0 15px;
+            color: #263238;
+        }
+
+        .help-hero h1 span {
+            color: #f28c5b;
+        }
+
+        .help-hero p {
+            max-width: 650px;
+            margin: auto;
+            color: #68747d;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            margin-bottom: 45px;
+        }
+
+        .help-card {
+            background: rgba(255,255,255,0.88);
+            border: 1px solid rgba(242,140,91,0.15);
+            border-radius: 22px;
+            padding: 28px;
+            box-shadow: 0 12px 35px rgba(70, 55, 40, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .help-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 45px rgba(70, 55, 40, 0.14);
+            border-color: rgba(242,140,91,0.35);
+        }
+
+        .help-icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff0e8;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .help-card:nth-child(2) .help-icon {
+            background: #eaf7ed;
+        }
+
+        .help-card:nth-child(3) .help-icon {
+            background: #eef3ff;
+        }
+
+        .help-card h3 {
+            margin: 0 0 10px;
+            color: #263238;
+        }
+
+        .help-card p {
+            color: #707b82;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .help-btn {
+            display: inline-block;
+            text-decoration: none;
+            padding: 10px 17px;
+            border-radius: 12px;
+            background: #f28c5b;
+            color: white;
+            font-weight: 700;
+            transition: all 0.25s ease;
+        }
+
+        .help-btn:hover {
+            transform: translateY(-2px);
+            background: #e87843;
+            box-shadow: 0 8px 18px rgba(242,140,91,0.25);
+        }
+
+        .faq-section {
+            background: rgba(255,255,255,0.9);
+            border-radius: 25px;
+            padding: 35px;
+            box-shadow: 0 12px 35px rgba(70,55,40,0.07);
+            margin-bottom: 35px;
+        }
+
+        .faq-section h2 {
+            text-align: center;
+            color: #263238;
+            margin-bottom: 28px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #eee5df;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            width: 100%;
+            border: none;
+            background: transparent;
+            padding: 20px 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            color: #263238;
+        }
+
+        .faq-question span {
+            transition: transform 0.3s ease;
+            color: #f28c5b;
+            font-size: 22px;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+        }
+
+        .faq-answer p {
+            color: #707b82;
+            line-height: 1.7;
+            padding: 0 5px 20px;
+            margin: 0;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+        }
+
+        .faq-item.active .faq-question span {
+            transform: rotate(45deg);
+        }
+
+        .contact-box {
+            text-align: center;
+            background: linear-gradient(135deg, #fff0e7, #eaf7ed);
+            border-radius: 25px;
+            padding: 40px 25px;
+        }
+
+        .contact-box h2 {
+            color: #263238;
+            margin-bottom: 10px;
+        }
+
+        .contact-box p {
+            color: #68747d;
+            margin-bottom: 22px;
+        }
+
+        .contact-email {
+            display: inline-block;
+            padding: 13px 22px;
+            border-radius: 14px;
+            background: white;
+            color: #e87843;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.25s ease;
+        }
+
+        .contact-email:hover {
+            transform: scale(1.04);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        @media (max-width: 850px) {
+            .help-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .faq-section {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .help-page {
+                padding: 30px 15px 60px;
+            }
+
+            .help-card {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="help-page">
+
+        <div class="help-container">
+
+            <div class="help-hero">
+
+                <div class="help-badge">
+                    ☁️ Cloud Meridian Support
+                </div>
+
+                <h1>
+                    How can we <span>help?</span>
+                </h1>
+
+                <p>
+                    Find answers about weather search, city selection,
+                    forecasts, temperature units and other Cloud Meridian features.
+                </p>
+
+            </div>
+
+
+            <!-- HELP CARDS -->
+
+            <div class="help-grid">
+
+                <div class="help-card">
+
+                    <div class="help-icon">
+                        🔎
+                    </div>
+
+                    <h3>
+                        Search Cities
+                    </h3>
+
+                    <p>
+                        Search Indian cities such as Delhi, Gurugram,
+                        Mumbai, Raipur, Patna, Kanpur and many more.
+                    </p>
+
+                    <a href="/" class="help-btn">
+                        Search Weather
+                    </a>
+
+                </div>
+
+
+                <div class="help-card">
+
+                    <div class="help-icon">
+                        🌡️
+                    </div>
+
+                    <h3>
+                        Temperature Units
+                    </h3>
+
+                    <p>
+                        Switch between Celsius and Fahrenheit directly
+                        from the weather dashboard.
+                    </p>
+
+                    <a href="/" class="help-btn">
+                        Open Dashboard
+                    </a>
+
+                </div>
+
+
+                <div class="help-card">
+
+                    <div class="help-icon">
+                        📍
+                    </div>
+
+                    <h3>
+                        My Location
+                    </h3>
+
+                    <p>
+                        Allow browser location access to check the weather
+                        around your current location.
+                    </p>
+
+                    <a href="/" class="help-btn">
+                        Try Location
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- FAQ -->
+
+            <div class="faq-section">
+
+                <h2>
+                    Frequently Asked Questions
+                </h2>
+
+
+                <div class="faq-item">
+
+                    <button class="faq-question">
+                        How does Cloud Meridian get weather data?
+                        <span>+</span>
+                    </button>
+
+                    <div class="faq-answer">
+
+                        <p>
+                            Cloud Meridian uses a weather API through the Flask
+                            backend to retrieve current conditions and forecast
+                            information for selected locations.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="faq-item">
+
+                    <button class="faq-question">
+                        Can I search different Indian cities?
+                        <span>+</span>
+                    </button>
+
+                    <div class="faq-answer">
+
+                        <p>
+                            Yes. You can search cities across India including
+                            state capitals and other major cities.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="faq-item">
+
+                    <button class="faq-question">
+                        Can I change Celsius to Fahrenheit?
+                        <span>+</span>
+                    </button>
+
+                    <div class="faq-answer">
+
+                        <p>
+                            Yes. Use the temperature unit button available
+                            in the dashboard header.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="faq-item">
+
+                    <button class="faq-question">
+                        Why does my location require permission?
+                        <span>+</span>
+                    </button>
+
+                    <div class="faq-answer">
+
+                        <p>
+                            Your browser requires permission before a website
+                            can access your approximate device location.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="faq-item">
+
+                    <button class="faq-question">
+                        Is Cloud Meridian an official IMD website?
+                        <span>+</span>
+                    </button>
+
+                    <div class="faq-answer">
+
+                        <p>
+                            No. Cloud Meridian is a personal weather dashboard
+                            project and is not an official website of the
+                            India Meteorological Department.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CONTACT -->
+
+            <div class="contact-box">
+
+                <h2>
+                    Still need help?
+                </h2>
+
+                <p>
+                    If you have a question about Cloud Meridian,
+                    you can reach out through email.
+                </p>
+
+                <a
+                    href="mailto:support@CloudMeridian.com"
+                    class="contact-email"
+                >
+                  <a href="/get-in-touch">
+    Get In Touch
+</a>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        const questions = document.querySelectorAll(".faq-question");
+
+        questions.forEach(question => {
+
+            question.addEventListener("click", () => {
+
+                const item = question.parentElement;
+
+                document.querySelectorAll(".faq-item").forEach(other => {
+
+                    if (other !== item) {
+                        other.classList.remove("active");
+                    }
+
+                });
+
+                item.classList.toggle("active");
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>

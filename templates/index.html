@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+<!-- SANDHU JI  -->
+    <meta
+        name="description"
+        content="Cloud Meridian - Modern Indian Weather Dashboard"
+    >
+
+    <title>Cloud Meridian | Weather Dashboard</title>
+
+
+    <!-- Google Font -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+<!-- SANDHU JI  -->
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- Chart.js -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"
+    ></script>
+
+<!-- SANDHU JI  -->
+    <!-- Main CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+<body>
+
+<!-- =====================================================
+     PAGE LOADER
+===================================================== -->
+
+<div
+    class="page-loader"
+    id="pageLoader"
+>
+
+    <div class="loader-circle"></div>
+
+    <p>Loading Cloud Meridian...</p>
+
+</div>
+
+<!-- SANDHU JI  -->
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="main-header">
+
+    <div class="container nav-container">
+
+        <!-- LOGO -->
+
+        <a
+            href="/"
+            class="brand"
+        >
+
+            <span class="brand-icon">
+                <i class="fa-solid fa-cloud-sun"></i>
+            </span>
+
+            <span>
+                Cloud <strong>Meridian</strong>
+            </span>
+
+        </a>
+
+<!-- SANDHU JI  -->
+        <!-- DESKTOP NAV -->
+
+        <nav class="desktop-nav">
+
+            <a
+                href="/"
+                class="nav-link active"
+            >
+                <i class="fa-solid fa-house"></i>
+                Home
+            </a>
+
+            <a
+                href="#cities"
+                class="nav-link"
+            >
+                <i class="fa-solid fa-city"></i>
+                Cities
+            </a>
+
+            <a
+    href="/get-in-touch"
+    class="nav-link"
+>
+    <i class="fa-solid fa-circle-question"></i>
+    Help Center
+</a>
+
+        </nav>
+
+<!-- SANDHU JI  -->
+        <!-- HEADER ACTIONS -->
+
+        <div class="header-actions">
+
+            <button
+                class="icon-button"
+                id="themeToggle"
+                title="Toggle theme"
+                type="button"
+            >
+                <i class="fa-solid fa-moon"></i>
+            </button>
+
+
+            <button
+                class="unit-button"
+                id="unitToggle"
+                type="button"
+            >
+                °C
+            </button>
+
+
+            <div
+                class="user-area"
+                id="userArea"
+            >
+<!-- SANDHU JI  -->
+                <a
+                    href="/login"
+                    class="login-button"
+                    id="loginNav"
+                >
+                    <i class="fa-regular fa-user"></i>
+                    Login
+                </a>
+
+            </div>
+
+
+            <!-- MOBILE MENU -->
+
+            <button
+                class="mobile-menu-button"
+                id="mobileMenuButton"
+                type="button"
+            >
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+        </div>
+
+    </div>
+<!-- SANDHU JI  -->
+
+    <!-- MOBILE NAV -->
+
+    <div
+        class="mobile-nav"
+        id="mobileNav"
+    >
+
+        <a href="/">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+
+        <a href="#cities">
+            <i class="fa-solid fa-city"></i>
+            Cities
+        </a>
+
+        <a href="get-in-touch">
+            <i class="fa-solid fa-circle-question"></i>
+            Help Center
+        </a>
+
+        <a href="/login">
+            <i class="fa-regular fa-user"></i>
+            Login
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+<!-- SANDHU JI  -->
+<main>
+
+
+<!-- =====================================================
+     HERO SECTION
+===================================================== -->
+
+<section class="hero-section">
+
+    <div class="container">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+
+                <span class="pulse-dot"></span>
+
+                Live Weather
+
+            </div>
+<!-- SANDHU JI  -->
+
+            <h1>
+
+                Weather made
+                <span>simple.</span>
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                Get accurate weather information for
+                cities across India with a clean,
+                beautiful and easy-to-use dashboard.
+
+            </p>
+
+
+            <!-- SEARCH -->
+
+            <div class="search-wrapper">
+
+                <div class="search-box">
+
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+
+
+                    <input
+                        type="text"
+                        id="citySearch"
+                        placeholder="Search Indian city..."
+                        autocomplete="off"
+                    >
+<!-- SANDHU JI  -->
+
+                    <button
+                        class="clear-search"
+                        id="clearSearch"
+                        type="button"
+                    >
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+
+
+                    <button
+                        class="search-button"
+                        id="searchButton"
+                        type="button"
+                    >
+                        Search
+                    </button>
+
+                </div>
+
+
+                <!-- SEARCH DROPDOWN -->
+
+                <div
+                    class="search-results"
+                    id="searchResults"
+                ></div>
+
+            </div>
+
+<!-- SANDHU JI  -->
+            <!-- SEARCH QUICK ACTIONS -->
+
+            <div class="search-actions">
+
+                <button
+                    class="location-button"
+                    id="locationButton"
+                    type="button"
+                >
+
+                    <i class="fa-solid fa-location-crosshairs"></i>
+
+                    Use My Location
+
+                </button>
+
+
+                <span class="search-hint">
+                    Try: Delhi, Gurugram, Mumbai, Raipur
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- SANDHU JI  -->
+<!-- =====================================================
+     FILTER SECTION
+===================================================== -->
+
+<section class="filter-section">
+
+    <div class="container">
+
+        <div class="filter-card">
+
+            <div class="filter-title">
+
+                <div class="filter-icon">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                </div>
+
+                <div>
+
+                    <h3>Explore India</h3>
+
+                    <p>
+                        Select a state and city
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="filter-controls">
+
+                <div class="select-group">
+
+                    <label for="stateSelect">
+                        State / UT
+                    </label>
+
+                    <div class="select-wrapper">
+
+                        <i class="fa-solid fa-map"></i>
+
+                        <select id="stateSelect">
+
+                            <option value="">
+                                All States
+                            </option>
+
+                        </select>
+
+                    </div>
+<!-- SANDHU JI  -->
+                </div>
+
+
+                <div class="select-group">
+
+                    <label for="citySelect">
+                        City
+                    </label>
+
+                    <div class="select-wrapper">
+
+                        <i class="fa-solid fa-city"></i>
+
+                        <select id="citySelect">
+
+                            <option value="">
+                                Select City
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- SANDHU JI  -->
+
+<!-- =====================================================
+     ERROR MESSAGE
+===================================================== -->
+
+<div
+    class="container"
+    id="errorContainer"
+>
+
+    <div
+        class="error-box"
+        id="errorBox"
+    >
+
+        <i class="fa-solid fa-triangle-exclamation"></i>
+
+        <span id="errorMessage">
+            Something went wrong.
+        </span>
+
+        <button
+            type="button"
+            id="closeError"
+        >
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+    </div>
+
+</div>
+
+<!-- SANDHU JI  -->
+<!-- =====================================================
+     WEATHER DASHBOARD
+===================================================== -->
+
+<section class="dashboard-section">
+
+    <div class="container">
+
+
+        <!-- WEATHER HERO CARD -->
+
+        <div class="weather-main-card">
+
+
+            <!-- LEFT -->
+
+            <div class="weather-main-left">
+
+                <div class="weather-location">
+
+                    <span class="live-indicator">
+                        <span></span>
+                        Live
+                    </span>
+
+                    <span id="weatherTimezone">
+                        Local Weather
+                    </span>
+
+                </div>
+
+<!-- SANDHU JI  -->
+                <div class="location-name">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    <div>
+
+                        <h2 id="weatherCity">
+                            New Delhi
+                        </h2>
+
+                        <p id="weatherState">
+                            Delhi, India
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="current-time">
+
+                    <i class="fa-regular fa-clock"></i>
+
+                    <span id="localTime">
+                        Loading local time...
+                    </span>
+
+                </div>
+
+            </div>
+<!-- SANDHU JI  -->
+
+            <!-- CENTER -->
+
+            <div class="temperature-area">
+
+                <div
+                    class="weather-icon-large"
+                    id="weatherIcon"
+                >
+                    ☀️
+                </div>
+
+                <div class="temperature">
+
+                    <span id="currentTemperature">
+                        --
+                    </span>
+
+                    <sup id="temperatureUnit">
+                        °C
+                    </sup>
+
+                </div>
+
+                <p
+                    class="weather-description"
+                    id="weatherDescription"
+                >
+                    Loading weather...
+                </p>
+
+                <p class="feels-like">
+
+                    Feels like
+
+                    <strong id="feelsLike">
+                        --°C
+                    </strong>
+
+                </p>
+
+            </div>
+<!-- SANDHU JI  -->
+
+            <!-- RIGHT -->
+
+            <div class="weather-status">
+
+                <div class="day-night">
+
+                    <span id="dayNightIcon">
+                        ☀️
+                    </span>
+
+                    <span id="dayNightText">
+                        Day
+                    </span>
+
+                </div>
+
+
+                <div class="weather-mini">
+
+                    <span>
+                        Today's High
+                    </span>
+
+                    <strong id="todayHigh">
+                        --°C
+                    </strong>
+
+                </div>
+
+
+                <div class="weather-mini">
+
+                    <span>
+                        Today's Low
+                    </span>
+
+                    <strong id="todayLow">
+                        --°C
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+<!-- SANDHU JI  -->
+        <!-- =================================================
+             WEATHER STATS
+        ================================================== -->
+
+        <div class="stats-grid">
+
+
+            <!-- HUMIDITY -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon humidity">
+                    <i class="fa-solid fa-droplet"></i>
+                </div>
+
+                <div class="stat-content">
+
+                    <span>Humidity</span>
+
+                    <strong id="humidity">
+                        --%
+                    </strong>
+
+                    <small>
+                        Relative humidity
+                    </small>
+
+                </div>
+
+            </div>
+
+<!-- SANDHU JI  -->
+            <!-- WIND -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon wind">
+                    <i class="fa-solid fa-wind"></i>
+                </div>
+
+                <div class="stat-content">
+
+                    <span>Wind Speed</span>
+
+                    <strong id="windSpeed">
+                        -- km/h
+                    </strong>
+
+                    <small id="windDirection">
+                        Direction: --
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- RAIN -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon rain">
+                    <i class="fa-solid fa-cloud-rain"></i>
+                </div>
+
+                <div class="stat-content">
+
+                    <span>Precipitation</span>
+
+                    <strong id="precipitation">
+                        -- mm
+                    </strong>
+
+                    <small>
+                        Current rainfall
+                    </small>
+<!-- SANDHU JI  -->
+                </div>
+
+            </div>
+
+
+            <!-- UV -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon uv">
+                    <i class="fa-solid fa-sun"></i>
+                </div>
+
+                <div class="stat-content">
+
+                    <span>UV Index</span>
+
+                    <strong id="uvIndex">
+                        --
+                    </strong>
+
+                    <small id="uvText">
+                        Today's maximum
+                    </small>
+
+                </div>
+
+            </div>
+
+<!-- SANDHU JI  -->
+            <!-- CLOUD -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon cloud">
+                    <i class="fa-solid fa-cloud"></i>
+                </div>
+
+                <div class="stat-content">
+
+                    <span>Cloud Cover</span>
+
+                    <strong id="cloudCover">
+                        --%
+                    </strong>
+
+                    <small>
+                        Sky coverage
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRESSURE -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon pressure">
+                    <i class="fa-solid fa-gauge-high"></i>
+                </div>
+
+                <div class="stat-content">
+
+                    <span>Pressure</span>
+
+                    <strong id="pressure">
+                        -- hPa
+                    </strong>
+
+                    <small>
+                        Sea level pressure
+                    </small>
+<!-- SANDHU JI  -->
+                </div>
+
+            </div>
+
+
+            <!-- VISIBILITY -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon visibility">
+                    <i class="fa-solid fa-eye"></i>
+                </div>
+
+                <div class="stat-content">
+
+                    <span>Visibility</span>
+
+                    <strong id="visibility">
+                        -- km
+                    </strong>
+
+                    <small>
+                        Current visibility
+                    </small>
+
+                </div>
+
+            </div>
+<!-- SANDHU JI  -->
+
+            <!-- GUST -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon gust">
+                    <i class="fa-solid fa-cloud-bolt"></i>
+                </div>
+
+                <div class="stat-content">
+
+                    <span>Wind Gust</span>
+
+                    <strong id="windGust">
+                        -- km/h
+                    </strong>
+
+                    <small>
+                        Maximum gust
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+<!-- SANDHU JI  -->
+        <!-- =================================================
+             CHART + INFO
+        ================================================== -->
+
+        <div class="dashboard-two-column">
+
+
+            <!-- HOURLY CHART -->
+
+            <div class="dashboard-card chart-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            WEATHER TREND
+                        </span>
+
+                        <h3>
+                            Next 24 Hours
+                        </h3>
+
+                    </div>
+
+                    <div class="chart-legend">
+
+                        <span>
+                            <i></i>
+                            Temperature
+                        </span>
+
+                    </div>
+
+                </div>
+
+<!-- SANDHU JI  -->
+                <div class="chart-container">
+
+                    <canvas id="hourlyChart"></canvas>
+
+                </div>
+
+            </div>
+
+
+            <!-- SUN CARD -->
+
+            <div class="dashboard-card sun-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            DAYLIGHT
+                        </span>
+
+                        <h3>
+                            Sun Schedule
+                        </h3>
+
+                    </div>
+
+                    <i class="fa-solid fa-sun heading-icon"></i>
+
+                </div>
+
+<!-- SANDHU JI  -->
+                <div class="sun-info">
+
+                    <div class="sun-item">
+
+                        <div class="sun-circle sunrise">
+                            <i class="fa-solid fa-sun"></i>
+                        </div>
+
+                        <div>
+
+                            <span>Sunrise</span>
+
+                            <strong id="sunrise">
+                                --
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="sun-line"></div>
+
+
+                    <div class="sun-item">
+
+                        <div class="sun-circle sunset">
+                            <i class="fa-solid fa-moon"></i>
+                        </div>
+
+                        <div>
+
+                            <span>Sunset</span>
+
+                            <strong id="sunset">
+                                --
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+<!-- SANDHU JI  -->
+
+                <div class="day-progress">
+
+                    <div class="day-progress-top">
+
+                        <span>
+                            Daylight progress
+                        </span>
+
+                        <strong id="dayProgressText">
+                            --
+                        </strong>
+
+                    </div>
+
+                    <div class="progress-track">
+
+                        <div
+                            class="progress-fill"
+                            id="dayProgress"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             7 DAY FORECAST
+        ================================================== -->
+
+        <div class="dashboard-card forecast-card">
+
+            <div class="card-heading">
+
+                <div>
+
+                    <span class="eyebrow">
+                        WEEKLY OUTLOOK
+                    </span>
+
+                    <h3>
+                        7-Day Forecast
+                    </h3>
+
+                </div>
+<!-- SANDHU JI  -->
+                <span class="forecast-location">
+                    <i class="fa-solid fa-location-dot"></i>
+                    India
+                </span>
+
+            </div>
+
+
+            <div
+                class="forecast-grid"
+                id="forecastGrid"
+            >
+
+                <!-- JS WILL INSERT -->
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             POPULAR CITIES
+        ================================================== -->
+
+        <section
+            class="cities-section"
+            id="cities"
+        >
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="eyebrow">
+                        EXPLORE
+                    </span>
+
+                    <h2>
+                        Popular Indian Cities
+                    </h2>
+
+                    <p>
+                        Quickly check weather across major
+                        cities of India.
+                    </p>
+
+                </div>
+
+<!-- SANDHU JI  -->
+                <button
+                    class="outline-button"
+                    id="showAllCities"
+                    type="button"
+                >
+                    View All Cities
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+            </div>
+
+
+            <div
+                class="cities-grid"
+                id="citiesGrid"
+            >
+
+                <!-- JS WILL INSERT -->
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FEATURES
+===================================================== -->
+
+<section class="features-section">
+
+    <div class="container">
+
+        <div class="section-heading centered">
+
+            <span class="eyebrow">
+                WHY Cloud Meridian
+            </span>
+
+            <h2>
+                Weather without the confusion.
+            </h2>
+
+            <p>
+                Everything you need for everyday weather
+                tracking in one clean dashboard.
+            </p>
+
+        </div>
+
+<!-- SANDHU JI  -->
+        <div class="features-grid">
+
+            <div class="feature-card">
+
+                <div class="feature-icon peach">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+
+                <h3>
+                    Fast Updates
+                </h3>
+
+                <p>
+                    Search cities and get weather information
+                    quickly through a simple interface.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon green">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+
+                <h3>
+                    Useful Insights
+                </h3>
+
+                <p>
+                    Temperature, humidity, wind, UV,
+                    pressure and forecast in one place.
+                </p>
+
+            </div>
+
+<!-- SANDHU JI  -->
+            <div class="feature-card">
+
+                <div class="feature-icon blue">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                </div>
+
+                <h3>
+                    Responsive Design
+                </h3>
+
+                <p>
+                    A clean experience across desktop,
+                    tablet and mobile devices.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon lavender">
+                    <i class="fa-solid fa-location-crosshairs"></i>
+                </div>
+
+                <h3>
+                    Location Support
+                </h3>
+
+                <p>
+                    Use your browser location to quickly
+                    check weather around you.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+<!-- SANDHU JI  -->
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="main-footer">
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+
+            <div class="footer-brand">
+
+                <a
+                    href="/"
+                    class="brand"
+                >
+
+                    <span class="brand-icon">
+                        <i class="fa-solid fa-cloud-sun"></i>
+                    </span>
+
+                    <span>
+                        Cloud <strong>Meridian</strong>
+                    </span>
+
+                </a>
+
+                <p>
+                    A modern weather dashboard designed
+                    for exploring weather across India.
+                </p>
+
+            </div>
+
+<!-- SANDHU JI  -->
+            <div class="footer-column">
+
+                <h4>
+                    Explore
+                </h4>
+
+                <a href="/">
+                    Home
+                </a>
+
+                <a href="#cities">
+                    Cities
+                </a>
+
+                <a href="/contact">
+                    Help Center
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Account
+                </h4>
+
+                <a href="/login">
+                    Login
+                </a>
+
+                <a href="/signup">
+                    Create Account
+                </a>
+
+            </div>
+
+<!-- SANDHU JI  -->
+            <div class="footer-column">
+
+                <h4>
+                    Support
+                </h4>
+
+                <a href="/contact">
+                    Contact Us
+                </a>
+
+                <a href="/contact">
+                    Help Center
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <p>
+               © 2026 Cloud Meridian. Designed & built with ❤️ by Sandhu.
+            </p>
+
+            <p>
+                 Beyond the clouds, closer to you. ☁️
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+<!-- SANDHU JI  -->
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script
+    src="{{ url_for('static', filename='js/app.js') }}"
+></script>
+
+</body>
+</html>
+
+
+
+
+<!-- SANDHU JI  -->

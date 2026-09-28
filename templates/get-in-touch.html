@@ -1,0 +1,4297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+<!-- SANDHU -->
+    <meta
+        name="description"
+        content="Get in touch with Cloud Meridian. Ask questions, report issues, suggest features or share feedback."
+    >
+
+    <title>Get In Touch | Cloud Meridian</title>
+
+
+    <!-- Font Awesome -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <style>
+/* SANDHU */
+
+        /* =====================================================
+           ROOT
+        ===================================================== */
+
+        :root {
+
+            --peach: #f3cbb8;
+            --peach-dark: #d99372;
+            --peach-deep: #bd7656;
+
+            --peach-light: #fff1e9;
+            --peach-soft: #fff8f4;
+
+            --cream: #fffaf7;
+            --white: #ffffff;
+
+            --text: #3b302b;
+            --muted: #81746d;
+
+            --border: #eadbd3;
+
+            --success: #5f9273;
+            --success-light: #eef8f1;
+
+            --danger: #d9534f;
+
+            --dark: #302722;
+            --dark-light: #453730;
+
+            --shadow:
+                0 20px 55px rgba(91, 65, 52, 0.10);
+
+            --shadow-small:
+                0 8px 25px rgba(91, 65, 52, 0.07);
+        }
+
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            font-family:
+                Inter,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            background: var(--cream);
+
+            color: var(--text);
+
+            line-height: 1.6;
+        }
+
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+/* SANDHU */
+
+        button,
+        input,
+        textarea,
+        select {
+            font: inherit;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .header {
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+
+            background:
+                rgba(255, 250, 247, 0.94);
+
+            backdrop-filter: blur(16px);
+
+            border-bottom:
+                1px solid rgba(234, 219, 211, 0.85);
+        }
+
+
+        .header-container {
+
+            width: min(1180px, 92%);
+
+            min-height: 78px;
+
+            margin: auto;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+/* SANDHU */
+
+        /* SAME BRAND STRUCTURE AS INDEX.HTML */
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            color: var(--text);
+
+            font-size: 18px;
+
+            font-weight: 700;
+        }
+
+
+        .brand strong {
+            color: var(--peach-deep);
+        }
+
+
+        .brand-icon {
+
+            width: 45px;
+
+            height: 45px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--peach),
+                    #ffe8db
+                );
+
+            color: var(--peach-deep);
+
+            font-size: 21px;
+
+            box-shadow:
+                0 8px 22px
+                rgba(217, 147, 114, 0.17);
+
+            transition: 0.3s;
+        }
+
+
+        .brand:hover .brand-icon {
+
+            transform:
+                translateY(-2px)
+                rotate(-3deg);
+        }
+
+/* SANDHU */
+
+        /* =====================================================
+           NAV
+        ===================================================== */
+
+        .nav {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 28px;
+        }
+
+
+        .nav-link {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            color: #6d6059;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition: 0.25s;
+        }
+
+
+        .nav-link i {
+            font-size: 13px;
+        }
+
+
+        .nav-link:hover {
+
+            color:
+                var(--peach-deep);
+
+            transform:
+                translateY(-1px);
+        }
+/* SANDHU */
+
+
+        .nav-link.active {
+
+            padding:
+                10px 15px;
+
+            border-radius: 11px;
+
+            background:
+                var(--peach-dark);
+
+            color: white;
+
+            box-shadow:
+                0 8px 20px
+                rgba(217, 147, 114, 0.22);
+        }
+
+
+        .menu-btn {
+
+            display: none;
+
+            border: 0;
+
+            background: transparent;
+
+            color: var(--text);
+
+            font-size: 23px;
+
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+
+            min-height: 455px;
+
+            display: grid;
+
+            place-items: center;
+
+            text-align: center;
+
+            padding: 80px 20px;
+
+            background:
+
+                radial-gradient(
+                    circle at 10% 20%,
+                    rgba(243, 203, 184, 0.72),
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 90% 15%,
+                    rgba(255, 225, 209, 0.8),
+                    transparent 32%
+                ),
+
+                radial-gradient(
+                    circle at 50% 100%,
+                    rgba(255, 239, 229, 0.85),
+                    transparent 38%
+                ),
+
+                var(--cream);
+
+            overflow: hidden;
+        }
+
+
+        .hero-content {
+
+            width: min(760px, 100%);
+
+            margin: auto;
+        }
+
+
+        .hero-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding:
+                8px 15px;
+
+            border-radius: 50px;
+
+            background:
+                var(--peach-light);
+
+            border:
+                1px solid #efd8cb;
+
+            color:
+                var(--peach-deep);
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+        }
+
+
+        .hero h1 {
+
+            margin-top: 21px;
+
+            font-size:
+                clamp(42px, 7vw, 70px);
+
+            line-height: 1.04;
+
+            letter-spacing: -2.5px;
+        }
+/* SANDHU */
+
+
+        .hero h1 span {
+
+            color:
+                var(--peach-deep);
+        }
+/* SANDHU */
+
+
+        .hero p {
+
+            max-width: 640px;
+
+            margin:
+                22px auto 0;
+
+            color:
+                var(--muted);
+
+            font-size: 16px;
+        }
+
+
+        .hero-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            margin-top: 25px;
+
+            padding:
+                13px 21px;
+
+            border-radius: 12px;
+
+            background:
+                var(--peach-dark);
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            box-shadow:
+                0 10px 25px
+                rgba(217, 147, 114, 0.22);
+
+            transition: 0.25s;
+        }
+
+
+        .hero-button:hover {
+
+            background:
+                var(--peach-deep);
+
+            transform:
+                translateY(-3px);
+        }
+
+
+        /* =====================================================
+           CONTACT INFORMATION
+        ===================================================== */
+
+        .contact-section {
+
+            width: min(1180px, 92%);
+
+            margin: auto;
+
+            padding:
+                85px 0;
+        }
+
+
+        .section-heading {
+
+            text-align: center;
+
+            margin-bottom: 42px;
+        }
+
+/* SANDHU */
+
+        .section-label {
+
+            display: inline-block;
+
+            padding:
+                7px 13px;
+
+            border-radius: 50px;
+
+            background:
+                var(--peach-light);
+
+            color:
+                var(--peach-deep);
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+        }
+
+
+        .section-heading h2 {
+
+            margin-top: 13px;
+
+            font-size:
+                clamp(30px, 5vw, 43px);
+
+            line-height: 1.15;
+        }
+
+
+        .section-heading p {
+
+            margin-top: 7px;
+
+            color:
+                var(--muted);
+
+            font-size: 14px;
+        }
+
+
+        .contact-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+        }
+
+
+        .contact-card {
+
+            padding: 24px;
+
+            background:
+                var(--white);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 19px;
+
+            display: flex;
+
+            gap: 14px;
+
+            box-shadow:
+                var(--shadow-small);
+
+            transition: 0.3s;
+        }
+
+
+        .contact-card:hover {
+
+            transform:
+                translateY(-5px);
+
+            border-color:
+                #e5c5b6;
+
+            box-shadow:
+                var(--shadow);
+        }
+
+/* SANDHU */
+
+        .contact-icon {
+
+            width: 44px;
+
+            height: 44px;
+
+            flex-shrink: 0;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 13px;
+
+            background:
+                var(--peach-light);
+
+            color:
+                var(--peach-deep);
+
+            font-size: 17px;
+        }
+
+
+        .contact-card h3 {
+            font-size: 15px;
+        }
+
+
+        .contact-card p {
+
+            margin-top: 3px;
+
+            color:
+                var(--muted);
+
+            font-size: 12px;
+        }
+
+
+        .contact-card a,
+        .contact-card span {
+
+            display: inline-block;
+
+            margin-top: 5px;
+
+            color:
+                var(--peach-deep);
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            word-break: break-word;
+        }
+
+
+        /* =====================================================
+           GET IN TOUCH SECTION
+        ===================================================== */
+
+        .get-in-touch {
+
+            padding:
+                100px 20px;
+
+            background:
+
+                radial-gradient(
+                    circle at 5% 20%,
+                    rgba(243, 203, 184, 0.68),
+                    transparent 28%
+                ),
+
+                radial-gradient(
+                    circle at 95% 80%,
+                    rgba(255, 226, 210, 0.75),
+                    transparent 32%
+                ),
+
+                var(--peach-soft);
+        }
+
+
+        .touch-container {
+
+            width: min(1180px, 100%);
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                0.85fr 1.15fr;
+
+            gap: 65px;
+
+            align-items: start;
+        }
+
+
+        .touch-info {
+            padding-top: 25px;
+        }
+
+
+        .touch-label {
+
+            display: inline-block;
+
+            padding:
+                7px 13px;
+
+            border-radius: 50px;
+
+            background:
+                white;
+
+            border:
+                1px solid #efd8cb;
+
+            color:
+                var(--peach-deep);
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+        }
+
+
+        .touch-info h2 {
+
+            margin-top: 18px;
+
+            font-size:
+                clamp(32px, 5vw, 50px);
+
+            line-height: 1.08;
+
+            letter-spacing: -1.5px;
+        }
+
+
+        .touch-info > p {
+
+            max-width: 510px;
+
+            margin-top: 19px;
+
+            color:
+                var(--muted);
+
+            font-size: 14px;
+        }
+
+/* SANDHU */
+
+        .help-list {
+
+            margin-top: 30px;
+
+            display: grid;
+
+            gap: 14px;
+        }
+
+
+        .help-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+        }
+
+
+        .check {
+
+            width: 27px;
+
+            height: 27px;
+
+            flex-shrink: 0;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 50%;
+
+            background:
+                white;
+
+            border:
+                1px solid #efd6c7;
+
+            color:
+                var(--peach-deep);
+
+            font-size: 12px;
+
+            font-weight: 900;
+        }
+
+
+        .help-item span:last-child {
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        .info-note {
+
+            margin-top: 30px;
+
+            padding: 19px;
+
+            border-left:
+                4px solid var(--peach-dark);
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,255,255,0.78);
+
+            box-shadow:
+                var(--shadow-small);
+        }
+
+
+        .info-note strong {
+            font-size: 13px;
+        }
+
+
+        .info-note p {
+
+            margin-top: 5px;
+
+            color:
+                var(--muted);
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           FORM CARD
+        ===================================================== */
+
+        .form-card {
+
+            padding: 34px;
+
+            background:
+                rgba(255,255,255,0.96);
+
+            border:
+                1px solid #ead9d0;
+
+            border-radius: 24px;
+
+            box-shadow:
+                var(--shadow);
+        }
+
+
+        .form-header {
+
+            margin-bottom: 26px;
+        }
+
+
+        .form-header h3 {
+            font-size: 26px;
+        }
+
+
+        .form-header p {
+
+            margin-top: 4px;
+
+            color:
+                var(--muted);
+
+            font-size: 12px;
+        }
+
+
+        .form-row {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 15px;
+        }
+
+/* SANDHU */
+
+        .form-group {
+
+            margin-bottom: 17px;
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+
+            width: 100%;
+
+            padding:
+                12px 13px;
+
+            border:
+                1px solid #e4d6ce;
+
+            border-radius: 11px;
+
+            outline: none;
+
+            background:
+                #fffdfb;
+
+            color:
+                var(--text);
+
+            transition: 0.2s;
+        }
+
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+
+            border-color:
+                var(--peach-dark);
+
+            background:
+                white;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(217,147,114,0.10);
+        }
+
+
+        .form-group textarea {
+
+            min-height: 145px;
+
+            resize: vertical;
+        }
+
+
+        .label-row {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+
+        .counter {
+
+            color:
+                var(--muted);
+
+            font-size: 10px;
+        }
+
+/* SANDHU */
+
+        .error {
+
+            display: block;
+
+            min-height: 16px;
+
+            margin-top: 3px;
+
+            color:
+                var(--danger);
+
+            font-size: 10px;
+        }
+
+
+        .checkbox {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 8px;
+
+            margin-top: 2px;
+        }
+
+
+        .checkbox input {
+
+            margin-top: 4px;
+
+            accent-color:
+                var(--peach-dark);
+        }
+
+
+        .checkbox label {
+
+            color:
+                var(--muted);
+
+            font-size: 11px;
+        }
+
+
+        .submit-button {
+
+            width: 100%;
+
+            min-height: 51px;
+
+            margin-top: 12px;
+
+            border: 0;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--peach-dark),
+                    var(--peach-deep)
+                );
+
+            color:
+                white;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 10px 25px
+                rgba(217,147,114,0.20);
+
+            transition: 0.25s;
+        }
+
+
+        .submit-button:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 14px 30px
+                rgba(217,147,114,0.26);
+        }
+
+
+        .submit-button:disabled {
+
+            opacity: 0.65;
+
+            cursor: wait;
+
+            transform: none;
+        }
+
+
+        .security {
+
+            margin-top: 11px;
+
+            text-align: center;
+
+            color:
+                var(--muted);
+
+            font-size: 10px;
+        }
+
+
+
+
+/* =========================================================
+   SUBMISSION SUCCESS MODAL
+========================================================= */
+
+.success-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    background: rgba(37, 31, 27, 0.48);
+    backdrop-filter: blur(8px);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+}
+
+
+.success-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+/* SANDHU */
+
+
+.success-modal-card {
+    width: min(520px, 100%);
+
+    background: #ffffff;
+
+    border: 1px solid rgba(217, 139, 103, 0.18);
+
+    border-radius: 28px;
+
+    padding: 38px 34px 32px;
+
+    text-align: center;
+
+    box-shadow:
+        0 30px 80px rgba(70, 42, 29, 0.20);
+
+    transform:
+        translateY(25px)
+        scale(0.96);
+
+    transition:
+        transform 0.35s ease;
+}
+
+
+.success-modal.active
+.success-modal-card {
+
+    transform:
+        translateY(0)
+        scale(1);
+
+}
+
+
+.success-icon {
+    width: 76px;
+    height: 76px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #e9f6ee;
+
+    color: #4f9270;
+
+    font-size: 34px;
+
+    box-shadow:
+        0 10px 25px rgba(79, 146, 112, 0.15);
+
+}
+
+
+.success-modal-card h2 {
+    margin: 0 0 10px;
+
+    font-size: 28px;
+
+    line-height: 1.2;
+
+    color: #2b2927;
+}
+
+
+.success-modal-card > p {
+    margin: 0 auto 24px;
+
+    max-width: 430px;
+
+    color: #77716d;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+}
+/* SANDHU */
+
+
+.reference-box {
+    margin: 20px 0 24px;
+
+    padding: 17px 18px;
+
+    background: #fff6f0;
+
+    border: 1px dashed #dfa080;
+
+    border-radius: 16px;
+}
+
+
+.reference-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #8b817b;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.08em;
+}
+
+
+.reference-id {
+    display: inline-block;
+
+    color: #c97851;
+
+    font-size: 20px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.08em;
+
+    word-break: break-all;
+}
+
+
+.success-actions {
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 10px;
+}
+
+
+.success-btn {
+    flex: 1;
+
+    min-height: 50px;
+
+    padding: 0 18px;
+
+    border-radius: 13px;
+
+    border: 1px solid #ead9cf;
+
+    background: #ffffff;
+
+    color: #5e554f;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.success-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(70, 42, 29, 0.10);
+}
+
+/* SANDHU */
+
+.success-btn.primary {
+    border-color: #d98b67;
+
+    background: #d98b67;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 8px 20px rgba(217, 139, 103, 0.22);
+}
+
+
+.success-btn.primary:hover {
+    background: #ca7c59;
+}
+
+
+.success-close {
+    position: absolute;
+
+    top: 18px;
+    right: 18px;
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: #f8f2ee;
+
+    color: #756b65;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.success-close:hover {
+    background: #f0e5de;
+
+    transform: rotate(90deg);
+}
+
+
+.success-modal-card {
+    position: relative;
+}
+/* SANDHU */
+
+
+.copy-success {
+    display: none;
+
+    margin-top: 10px;
+
+    color: #4f9270;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+.copy-success.show {
+    display: block;
+}
+
+
+@media (max-width: 600px) {
+
+    .success-modal {
+        padding: 16px;
+    }
+
+
+    .success-modal-card {
+        padding: 32px 20px 24px;
+
+        border-radius: 22px;
+    }
+
+
+    .success-modal-card h2 {
+        font-size: 24px;
+    }
+
+
+    .success-actions {
+        flex-direction: column;
+    }
+
+
+    .success-btn {
+        width: 100%;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+        /* =====================================================
+           SUCCESS SCREEN
+        ===================================================== */
+
+        .success-screen {
+
+            display: none;
+
+            text-align: center;
+
+            padding:
+                28px 10px 12px;
+        }
+
+/* SANDHU */
+
+        .success-screen.show {
+            display: block;
+        }
+
+
+        .success-icon {
+
+            width: 78px;
+
+            height: 78px;
+
+            margin:
+                0 auto 18px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 50%;
+
+            background:
+                var(--success-light);
+
+            color:
+                var(--success);
+
+            font-size: 31px;
+
+            box-shadow:
+                0 12px 30px
+                rgba(95,146,115,0.13);
+
+            animation:
+                successPop 0.5s ease;
+        }
+
+
+        @keyframes successPop {
+
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            70% {
+                transform: scale(1.08);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+
+        .success-screen h3 {
+
+            font-size: 28px;
+
+            color:
+                var(--text);
+        }
+
+
+        .success-title {
+
+            margin-top: 5px;
+
+            color:
+                var(--success);
+
+            font-weight: 700;
+
+            font-size: 14px;
+        }
+
+
+        .success-message {
+
+            max-width: 470px;
+
+            margin:
+                13px auto 20px;
+
+            color:
+                var(--muted);
+
+            font-size: 13px;
+        }
+
+
+        .reference-box {
+
+            max-width: 390px;
+
+            margin:
+                20px auto;
+
+            padding:
+                15px;
+
+            border:
+                1px dashed #dfc4b5;
+
+            border-radius: 13px;
+
+            background:
+                var(--peach-soft);
+        }
+
+/* SANDHU */
+
+        .reference-label {
+
+            display: block;
+
+            color:
+                var(--muted);
+
+            font-size: 10px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+        }
+
+
+        .reference-id {
+
+            display: inline-block;
+
+            margin-top: 5px;
+
+            color:
+                var(--peach-deep);
+
+            font-size: 19px;
+
+            font-weight: 900;
+
+            letter-spacing: 1px;
+        }
+
+
+        .copy-reference {
+
+            margin-left: 7px;
+
+            padding:
+                6px 9px;
+
+            border:
+                1px solid #e5cec1;
+
+            border-radius: 7px;
+
+            background:
+                white;
+
+            color:
+                var(--peach-deep);
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+
+        .copy-reference:hover {
+            background: var(--peach-light);
+        }
+
+
+        .success-date {
+
+            color:
+                var(--muted);
+
+            font-size: 11px;
+        }
+
+
+        .success-actions {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 10px;
+
+            margin-top: 22px;
+
+            flex-wrap: wrap;
+        }
+
+/* SANDHU */
+
+        .success-action {
+
+            padding:
+                11px 18px;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        .primary-action {
+
+            border: 0;
+
+            background:
+                var(--peach-dark);
+
+            color: white;
+        }
+
+
+        .secondary-action {
+
+            border:
+                1px solid var(--border);
+
+            background:
+                white;
+
+            color:
+                var(--text);
+        }
+
+
+        /* =====================================================
+           FAQ
+        ===================================================== */
+
+        .faq {
+
+            width: min(850px, 92%);
+
+            margin: auto;
+
+            padding:
+                85px 0;
+        }
+
+
+        .faq-item {
+
+            margin-bottom: 11px;
+
+            background:
+                white;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 14px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 5px 20px
+                rgba(91,65,52,0.035);
+        }
+/* SANDHU */
+
+
+        .faq-question {
+
+            width: 100%;
+
+            padding:
+                18px 20px;
+
+            border: 0;
+
+            background:
+                white;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            text-align: left;
+
+            color:
+                var(--text);
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+
+        .faq-plus {
+
+            color:
+                var(--peach-deep);
+
+            font-size: 21px;
+
+            transition: 0.25s;
+        }
+
+
+        .faq-answer {
+
+            max-height: 0;
+
+            overflow: hidden;
+
+            transition:
+                max-height 0.3s ease;
+        }
+
+
+        .faq-answer p {
+
+            padding:
+                0 20px 19px;
+
+            color:
+                var(--muted);
+
+            font-size: 12px;
+        }
+
+
+        .faq-item.active .faq-plus {
+
+            transform:
+                rotate(45deg);
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .footer {
+
+            padding:
+                58px 20px 0;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #221d1a,
+                    #231d19
+                );
+
+            color:
+                white;
+        }
+/* SANDHU */
+
+
+        .footer-container {
+
+            width: min(1180px, 100%);
+
+            margin: auto;
+
+            padding-bottom: 42px;
+
+            display: grid;
+
+            grid-template-columns:
+                1.5fr 1fr 1fr;
+
+            gap: 60px;
+        }
+
+
+        .footer .brand {
+            color: white;
+        }
+
+
+        .footer .brand strong {
+            color:
+                var(--peach);
+        }
+
+
+        .footer .brand-icon {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--peach),
+                    #f5f5f5
+                );
+
+            color:
+                var(--peach-deep);
+        }
+
+
+        .footer-description {
+
+            max-width: 390px;
+
+            margin-top: 17px;
+
+            color:
+                #c9bbb3;
+
+            font-size: 12px;
+        }
+
+
+        .footer-column {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+
+        .footer-column h4 {
+
+            margin-bottom: 6px;
+
+            font-size: 14px;
+        }
+/* SANDHU */
+
+        .footer-column a,
+        .footer-column span {
+
+            color:
+                #c9bbb3;
+
+            font-size: 12px;
+
+            transition: 0.2s;
+        }
+
+
+        .footer-column a:hover {
+
+            color:
+                var(--peach);
+        }
+
+
+        .footer-bottom {
+
+            width: min(1180px, 100%);
+
+            margin: auto;
+
+            padding:
+                21px 0;
+
+            border-top:
+                1px solid
+                rgba(10, 6, 6, 0.653);
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            color:
+                #fcfcfc;
+
+            font-size: 10px;
+        }
+
+
+        /* =====================================================
+           TOAST
+        ===================================================== */
+
+        .toast {
+
+            position: fixed;
+
+            right: 22px;
+
+            bottom: 22px;
+
+            z-index: 5000;
+
+            max-width: 350px;
+
+            padding:
+                13px 17px;
+
+            border-radius: 11px;
+
+            background:
+                #382c26;
+
+            color:
+                white;
+
+            font-size: 12px;
+
+            box-shadow:
+                var(--shadow);
+
+            transform:
+                translateY(120px);
+
+            opacity: 0;
+
+            transition: 0.3s;
+        }
+
+
+        .toast.show {
+
+            transform:
+                translateY(0);
+
+            opacity: 1;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1000px) {
+
+            .contact-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .touch-container {
+
+                grid-template-columns:
+                    1fr;
+
+                gap: 35px;
+            }
+
+            .touch-info {
+                padding-top: 0;
+            }
+
+            .footer-container {
+                grid-template-columns:
+                    1fr 1fr;
+            }
+        }
+
+
+        @media (max-width: 720px) {
+
+            .nav {
+
+                display: none;
+
+                position: absolute;
+
+                top: 72px;
+
+                left: 4%;
+
+                right: 4%;
+
+                padding: 15px;
+
+                background:
+                    white;
+
+                border:
+                    1px solid var(--border);
+
+                border-radius: 15px;
+
+                box-shadow:
+                    var(--shadow);
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+                gap: 5px;
+            }
+
+
+            .nav.open {
+                display: flex;
+            }
+
+
+            .nav-link {
+                padding: 10px;
+            }
+
+
+            .menu-btn {
+                display: block;
+            }
+
+
+            .hero {
+                min-height: 420px;
+
+                padding:
+                    65px 20px;
+            }
+
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .form-card {
+                padding:
+                    25px 19px;
+            }
+
+
+            .form-row {
+                grid-template-columns: 1fr;
+
+                gap: 0;
+            }
+
+
+            .footer-container {
+                grid-template-columns: 1fr;
+
+                gap: 35px;
+            }
+
+
+            .footer-bottom {
+                flex-direction: column;
+            }
+        }
+
+
+        @media (max-width: 450px) {
+
+            .brand {
+                font-size: 16px;
+            }
+
+
+            .brand-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+
+            .hero h1 {
+                letter-spacing: -1.5px;
+            }
+
+
+            .form-card {
+                border-radius: 18px;
+            }
+
+
+            .success-actions {
+                flex-direction: column;
+            }
+
+
+            .success-action {
+                width: 100%;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="header">
+
+        <div class="header-container">
+
+
+            <!-- SAME CLOUD MERIDIAN BRAND -->
+
+            <a
+                href="/"
+                class="brand"
+            >
+
+                <span class="brand-icon">
+
+                    <i class="fa-solid fa-cloud-sun"></i>
+
+                </span>
+
+                <span>
+                    Cloud <strong>Meridian</strong>
+                </span>
+
+            </a>
+
+
+            <!-- NAVIGATION -->
+
+            <nav
+                class="nav"
+                id="nav"
+            >
+
+                <a
+                    href="/"
+                    class="nav-link"
+                >
+
+                    <i class="fa-solid fa-house"></i>
+
+                    Home
+
+                </a>
+<!-- SANDHU JI  -->
+
+
+                <a
+                    href="/"
+                    class="nav-link"
+                >
+
+                    <i class="fa-solid fa-cloud-sun"></i>
+
+                    Weather
+
+                </a>
+
+
+                <!-- <a
+                    href="#get-in-touch"
+                    class="nav-link"
+                >
+
+                    <i class="fa-solid fa-circle-question"></i>
+
+                    Help Center
+
+                </a> -->
+
+
+                <a
+                    href="#get-in-touch"
+                    class="nav-link active"
+                >
+
+                    <i class="fa-solid fa-paper-plane"></i>
+
+                    Get In Touch
+
+                </a>
+
+            </nav>
+
+
+            <!-- MOBILE MENU -->
+
+            <button
+                class="menu-btn"
+                id="menuBtn"
+                aria-label="Open navigation"
+            >
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <span class="hero-badge">
+
+                <i class="fa-solid fa-comments"></i>
+
+                CLOUD MERIDIAN SUPPORT
+
+            </span>
+
+
+            <h1>
+
+                Let's
+
+                <span>
+                    Get In Touch.
+                </span>
+
+            </h1>
+
+<!-- SANDHU JI  -->
+
+   <p>
+    Have a question, feedback, or a suggestion for
+    <strong>Cloud Meridian</strong>? We're always open to hearing
+    from you. Whether you want to report an issue, share an idea,
+    ask for help, or simply tell us about your experience, we'd
+    love to hear from you.
+    <br><br>
+    Your feedback helps us improve Cloud Meridian and create a
+    smoother, more reliable, and enjoyable weather experience
+    for everyone. No matter how big or small your message is,
+    <strong>every suggestion matters.</strong>
+</p>
+
+
+            <a
+                href="#get-in-touch"
+                class="hero-button"
+            >
+
+                Start a Conversation
+
+                <i class="fa-solid fa-arrow-down"></i>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CONTACT INFORMATION
+    ====================================================== -->
+
+    <section class="contact-section">
+
+
+        <div class="section-heading">
+
+            <span class="section-label">
+                CONTACT INFORMATION
+            </span>
+
+
+            <h2>
+                We're here to help.
+            </h2>
+
+
+            <p>
+                Choose the contact option that works for you.
+            </p>
+
+        </div>
+
+
+        <div class="contact-grid">
+
+
+            <!-- EMAIL -->
+
+            <article class="contact-card">
+
+                <div class="contact-icon">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Email
+                    </h3>
+
+                    <p>
+                        General questions & support
+                    </p>
+
+                    <a
+                        href="mailto:support@cloudmeridian.com"
+                    >
+                        support@cloudmeridian.com
+                    </a>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- PHONE -->
+
+            <article class="contact-card">
+
+                <div class="contact-icon">
+
+                    <i class="fa-solid fa-phone"></i>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Phone
+                    </h3>
+
+                    <p>
+                        Support & assistance
+                    </p>
+
+                    <a href="tel:+916263171727">
+                        +91 62631 71727
+                    </a>
+
+                </div>
+
+            </article>
+
+<!-- SANDHU JI  -->
+
+
+            <!-- LOCATION -->
+
+            <article class="contact-card">
+
+                <div class="contact-icon">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Location
+                    </h3>
+
+                    <p>
+                        Cloud Meridian
+                    </p>
+
+                    <span>
+                        India
+                    </span>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- RESPONSE -->
+
+            <article class="contact-card">
+
+                <div class="contact-icon">
+
+                    <i class="fa-solid fa-bolt"></i>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Support
+                    </h3>
+
+                    <p>
+                        Questions & requests
+                    </p>
+
+                    <span>
+                        We're here to help
+                    </span>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         GET IN TOUCH FORM
+    ====================================================== -->
+
+    <section
+        class="get-in-touch"
+        id="get-in-touch"
+    >
+
+        <div class="touch-container">
+
+
+            <!-- LEFT -->
+
+            <div class="touch-info">
+
+                <span class="touch-label">
+                    GET IN TOUCH
+                </span>
+
+
+                <h2>
+                    Tell us what's on your mind.
+                </h2>
+
+
+                <p>
+
+                    Whether you want to report a website issue,
+                    suggest a feature, ask a question, or share
+                    feedback, we'd love to hear from you.
+
+                </p>
+
+
+                <div class="help-list">
+
+
+                    <div class="help-item">
+
+                        <span class="check">
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+
+                        <span>
+                            Report a website issue
+                        </span>
+
+                    </div>
+
+
+                    <div class="help-item">
+
+                        <span class="check">
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+
+                        <span>
+                            Suggest a new feature
+                        </span>
+
+                    </div>
+
+
+                    <div class="help-item">
+
+                        <span class="check">
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+
+                        <span>
+                            Report incorrect weather information
+                        </span>
+
+                    </div>
+
+
+                    <div class="help-item">
+
+                        <span class="check">
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+
+                        <span>
+                            Share feedback or suggestions
+                        </span>
+
+                    </div>
+<!-- SANDHU JI  -->
+
+
+                </div>
+
+
+                <div class="info-note">
+
+                    <strong>
+                        <i class="fa-solid fa-lightbulb"></i>
+                        Have an idea?
+                    </strong>
+
+                    <p>
+                        Your feedback can help make Cloud Meridian
+                        more useful and easier to use.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- RIGHT / FORM -->
+
+            <div class="form-card">
+
+
+                <!-- FORM AREA -->
+
+                <div id="formArea">
+
+
+                    <div class="form-header">
+
+                        <h3>
+                            Send Us A Message
+                        </h3>
+
+                        <p>
+                            Fill in the details below and submit
+                            your request.
+                        </p>
+
+                    </div>
+
+
+                    <form
+                        id="contactForm"
+                        novalidate
+                    >
+
+
+                        <!-- NAME -->
+
+                        <div class="form-group">
+
+                            <label for="name">
+                                Full Name *
+                            </label>
+
+                            <input
+                                type="text"
+                                id="name"
+                                placeholder="Enter your full name"
+                                autocomplete="name"
+                            >
+
+                            <span
+                                class="error"
+                                id="nameError"
+                            ></span>
+
+                        </div>
+<!-- SANDHU JI  -->
+
+
+
+                        <!-- EMAIL + PHONE -->
+
+                        <div class="form-row">
+
+
+                            <div class="form-group">
+
+                                <label for="email">
+                                    Email *
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="email"
+                                    placeholder="you@example.com"
+                                    autocomplete="email"
+                                >
+
+                                <span
+                                    class="error"
+                                    id="emailError"
+                                ></span>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="phone">
+                                    Phone
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    placeholder="+91 XXXXX XXXXX"
+                                    autocomplete="tel"
+                                >
+
+                            </div>
+
+
+                        </div>
+
+
+
+
+                        <!-- MESSAGE -->
+
+                        <div class="form-group">
+
+                            <div class="label-row">
+
+                                <label for="message">
+                                    Message *
+                                </label>
+
+                                <span
+                                    class="counter"
+                                    id="counter"
+                                >
+                                    0 / 1000
+                                </span>
+
+                            </div>
+<!-- SANDHU JI  -->
+
+
+                            <textarea
+                                id="message"
+                                maxlength="1000"
+                                placeholder="Write your message here..."
+                            ></textarea>
+
+
+                            <span
+                                class="error"
+                                id="messageError"
+                            ></span>
+
+                        </div>
+
+
+
+                        <!-- CONSENT -->
+
+                        <div class="checkbox">
+
+                            <input
+                                type="checkbox"
+                                id="consent"
+                            >
+
+                            <label for="consent">
+
+                                I agree that Cloud Meridian may
+                                use the information provided to
+                                respond to my request.
+
+                            </label>
+
+                        </div>
+
+
+                        <span
+                            class="error"
+                            id="consentError"
+                        ></span>
+
+
+
+                        <!-- SUBMIT -->
+
+                        <button
+                            type="submit"
+                            class="submit-button"
+                            id="submitButton"
+                        >
+
+                            <i class="fa-solid fa-paper-plane"></i>
+
+                            <span id="submitText">
+                                Submit Message
+                            </span>
+
+                        </button>
+
+
+                        <p class="security">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                            Your information is used only
+                            for handling your request.
+
+                        </p>
+
+
+                    </form>
+
+                </div>
+
+<!-- SANDHU JI  -->
+
+
+                <!-- =================================================
+                     SUCCESS SCREEN
+                ================================================== -->
+
+                <div
+                    class="success-screen"
+                    id="successScreen"
+                >
+
+
+                    <div class="success-icon">
+
+                        <i class="fa-solid fa-check"></i>
+
+                    </div>
+
+
+                    <h3>
+                        Message Submitted!
+                    </h3>
+
+
+                    <div class="success-title">
+                        Your request has been received successfully.
+                    </div>
+
+
+                    <p
+                        class="success-message"
+                        id="successMessage"
+                    >
+                        Thank you for contacting Cloud Meridian.
+                        We have recorded your request.
+                    </p>
+
+
+                    <!-- REFERENCE ID -->
+
+                    <div class="reference-box">
+
+                        <span class="reference-label">
+                            Your Reference ID
+                        </span>
+
+
+                        <span
+                            class="reference-id"
+                            id="referenceId"
+                        >
+                            CM-000000
+                        </span>
+
+
+                        <button
+                            type="button"
+                            class="copy-reference"
+                            id="copyReference"
+                        >
+
+                            <i class="fa-regular fa-copy"></i>
+
+                            Copy
+
+                        </button>
+
+                    </div>
+<!-- SANDHU JI  -->
+
+
+                    <div
+                        class="success-date"
+                        id="successDate"
+                    >
+                        Submitted successfully.
+                    </div>
+
+
+                    <!-- ACTIONS -->
+
+                    <div class="success-actions">
+
+                        <button
+                            type="button"
+                            class="success-action primary-action"
+                            id="newMessageButton"
+                        >
+
+                            <i class="fa-solid fa-plus"></i>
+
+                            Send Another Message
+
+                        </button>
+
+
+                        <a
+                            href="/"
+                            class="success-action secondary-action"
+                        >
+
+                            <i class="fa-solid fa-house"></i>
+
+                            Back To Home
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+<!-- SANDHU JI  -->
+
+
+<!-- =========================================================
+     SUCCESS MODAL
+========================================================= -->
+
+<div
+    class="success-modal"
+    id="successModal"
+    aria-hidden="true"
+>
+
+    <div class="success-modal-card">
+
+        <button
+            type="button"
+            class="success-close"
+            id="successClose"
+            aria-label="Close"
+        >
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+
+        <div class="success-icon">
+
+            <i class="fa-solid fa-check"></i>
+
+        </div>
+
+
+        <h2>
+            Message Submitted Successfully!
+        </h2>
+
+
+        <p>
+            Thank you for contacting
+            <strong>Cloud Meridian</strong>.
+            Your message has been received successfully.
+        </p>
+
+<!-- SANDHU JI  -->
+
+
+
+
+
+        <div class="reference-box">
+
+            <span class="reference-label">
+                Your Reference ID
+            </span>
+
+
+            <span
+                class="reference-id"
+                id="referenceId"
+            >
+                CM-000000
+            </span>
+
+        </div>
+
+
+        <p>
+            Please keep this reference ID for your records.
+            It can help us identify your request if you contact
+            us again.
+        </p>
+
+
+        <div class="success-actions">
+
+            <button
+                type="button"
+                class="success-btn"
+                id="copyReference"
+            >
+                <i class="fa-regular fa-copy"></i>
+                Copy Reference ID
+            </button>
+
+
+            <button
+                type="button"
+                class="success-btn primary"
+                id="sendAnother"
+            >
+                <i class="fa-solid fa-paper-plane"></i>
+                Send Another Message
+            </button>
+
+        </div>
+
+
+        <div
+            class="copy-success"
+            id="copySuccess"
+        >
+            <i class="fa-solid fa-check"></i>
+            Reference ID copied!
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- SANDHU JI  -->
+
+
+
+
+    <!-- =====================================================
+         FAQ
+    ====================================================== -->
+
+    <section
+        class="faq"
+        id="faq"
+    >
+
+
+        <div class="section-heading">
+
+            <span class="section-label">
+                HELP CENTER
+            </span>
+
+
+            <h2>
+                Frequently Asked Questions
+            </h2>
+
+
+            <p>
+                Quick answers to common questions.
+            </p>
+
+        </div>
+<!-- SANDHU JI  -->
+
+
+
+        <!-- FAQ 1 -->
+
+        <div class="faq-item">
+
+            <button class="faq-question">
+
+                <span>
+                    How can I report a website problem?
+                </span>
+
+                <span class="faq-plus">
+                    +
+                </span>
+
+            </button>
+
+
+            <div class="faq-answer">
+
+                <p>
+
+                    Use the Get In Touch form and select
+                    "Website Issue". Explain the problem and
+                    provide the page or feature where it happened.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FAQ 2 -->
+
+        <div class="faq-item">
+
+            <button class="faq-question">
+
+                <span>
+                    Can I suggest a new feature?
+                </span>
+
+                <span class="faq-plus">
+                    +
+                </span>
+
+            </button>
+
+
+            <div class="faq-answer">
+
+                <p>
+
+                    Yes. Select "Feature Suggestion" and
+                    describe the feature you would like to see
+                    in Cloud Meridian.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FAQ 3 -->
+
+        <div class="faq-item">
+
+            <button class="faq-question">
+
+                <span>
+                    Can I report incorrect weather data?
+                </span>
+
+                <span class="faq-plus">
+                    +
+                </span>
+
+            </button>
+
+
+            <div class="faq-answer">
+
+                <p>
+
+                    Yes. Select "Weather Data" and mention
+                    the city, approximate time and details
+                    about the information that needs attention.
+
+                </p>
+
+            </div>
+
+        </div>
+
+<!-- SANDHU JI  -->
+
+
+        <!-- FAQ 4 -->
+
+        <div class="faq-item">
+
+            <button class="faq-question">
+
+                <span>
+                    What happens after I submit a message?
+                </span>
+
+                <span class="faq-plus">
+                    +
+                </span>
+
+            </button>
+
+
+            <div class="faq-answer">
+
+                <p>
+
+                    After submission, Cloud Meridian generates
+                    a reference ID for your request and displays
+                    a confirmation screen.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="footer">
+
+
+        <div class="footer-container">
+
+
+            <!-- BRAND -->
+
+            <div>
+<!-- SANDHU JI  -->
+
+
+                <!-- SAME CLOUD MERIDIAN BRAND -->
+
+                <a
+                    href="/"
+                    class="brand"
+                >
+
+                    <span class="brand-icon">
+
+                        <i class="fa-solid fa-cloud-sun"></i>
+
+                    </span>
+
+                    <span>
+                        Cloud <strong>Meridian</strong>
+                    </span>
+
+                </a>
+
+
+                <p class="footer-description">
+
+                    Weather information made easier to
+                    explore, understand and access.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- LINKS -->
+
+            <div class="footer-column">
+
+                <h4>
+                    Quick Links
+                </h4>
+
+
+                <a href="/">
+                    Home
+                </a>
+
+
+                <a href="/">
+                    Weather
+                </a>
+<!-- SANDHU JI  -->
+
+
+                <a href="#get-in-touch">
+                    Help Center
+                </a>
+
+
+                <a href="#get-in-touch">
+                    Get In Touch
+                </a>
+
+            </div>
+
+
+
+            <!-- CONTACT -->
+
+            <div class="footer-column">
+
+                <h4>
+                    Contact
+                </h4>
+
+
+                <a
+                    href="mailto:support@cloudmeridian.com"
+                >
+                    support@cloudmeridian.com
+                </a>
+
+
+                <a href="tel:+916263171727">
+                    +91 62631 71727
+                </a>
+<!-- SANDHU JI  -->
+
+
+                <span>
+                    India
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FOOTER BOTTOM -->
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 Cloud Meridian.
+                Designed & built with ❤️ by Sandhu.
+            </p>
+
+
+            <p>
+                Beyond the clouds, closer to you. ☁️
+            </p>
+
+        </div>
+
+    </footer>
+<!-- SANDHU JI  -->
+
+
+    <!-- =====================================================
+         TOAST
+    ====================================================== -->
+
+    <div
+        class="toast"
+        id="toast"
+    ></div>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+<script>
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+// SANDHU
+
+
+            /* =================================================
+               MOBILE NAVIGATION
+            ================================================= */
+
+            const menuBtn =
+                document.getElementById("menuBtn");
+
+            const nav =
+                document.getElementById("nav");
+
+
+            if (menuBtn && nav) {
+
+                menuBtn.addEventListener(
+                    "click",
+                    function () {
+
+                        nav.classList.toggle("open");
+
+                    }
+                );
+// SANDHU
+
+
+                document
+                    .querySelectorAll(".nav-link")
+                    .forEach(
+                        function (link) {
+
+                            link.addEventListener(
+                                "click",
+                                function () {
+
+                                    nav.classList.remove(
+                                        "open"
+                                    );
+
+                                }
+                            );
+
+                        }
+                    );
+
+            }
+
+
+
+            /* =================================================
+               FORM ELEMENTS
+            ================================================= */
+
+            const form =
+                document.getElementById(
+                    "contactForm"
+                );
+
+            const formArea =
+                document.getElementById(
+                    "formArea"
+                );
+
+            const successScreen =
+                document.getElementById(
+                    "successScreen"
+                );
+
+            const submitButton =
+                document.getElementById(
+                    "submitButton"
+                );
+
+            const submitText =
+                document.getElementById(
+                    "submitText"
+                );
+
+// SANDHU
+
+            const nameInput =
+                document.getElementById(
+                    "name"
+                );
+
+            const emailInput =
+                document.getElementById(
+                    "email"
+                );
+
+            const phoneInput =
+                document.getElementById(
+                    "phone"
+                );
+
+            const messageInput =
+                document.getElementById(
+                    "message"
+                );
+
+            const consentInput =
+                document.getElementById(
+                    "consent"
+                );
+
+            const counter =
+                document.getElementById(
+                    "counter"
+                );
+
+// SANDHU
+
+
+            /* =================================================
+               SUCCESS MODAL ELEMENTS
+            ================================================= */
+
+            const successModal =
+                document.getElementById(
+                    "successModal"
+                );
+
+            const successClose =
+                document.getElementById(
+                    "successClose"
+                );
+
+            const sendAnother =
+                document.getElementById(
+                    "sendAnother"
+                );
+
+            const copySuccess =
+                document.getElementById(
+                    "copySuccess"
+                );
+// SANDHU
+
+
+            /*
+               IMPORTANT:
+               There are duplicate IDs in the HTML for
+               referenceId and copyReference.
+
+               So we specifically select them INSIDE
+               the success modal.
+            */
+
+            const referenceIdElement =
+                successModal
+                    ? successModal.querySelector(
+                        "#referenceId"
+                    )
+                    : null;
+
+            const copyReference =
+                successModal
+                    ? successModal.querySelector(
+                        "#copyReference"
+                    )
+                    : null;
+// SANDHU
+
+
+
+            /* =================================================
+               CHARACTER COUNTER
+            ================================================= */
+
+            if (
+                messageInput &&
+                counter
+            ) {
+
+                messageInput.addEventListener(
+                    "input",
+                    function () {
+
+                        counter.textContent =
+                            messageInput.value.length +
+                            " / 1000";
+
+                    }
+                );
+
+            }
+
+
+// SANDHU
+
+            /* =================================================
+               CLEAR ERRORS
+            ================================================= */
+
+            function clearErrors() {
+
+                document
+                    .querySelectorAll(".error")
+                    .forEach(
+                        function (element) {
+
+                            element.textContent = "";
+
+                        }
+                    );
+
+            }
+
+// SANDHU
+
+
+            /* =================================================
+               VALIDATE FORM
+            ================================================= */
+
+            function validateForm() {
+
+                clearErrors();
+
+                let valid = true;
+
+// SANDHU
+
+                /* NAME */
+
+                if (
+                    nameInput &&
+                    nameInput.value.trim().length < 2
+                ) {
+
+                    const nameError =
+                        document.getElementById(
+                            "nameError"
+                        );
+
+                    if (nameError) {
+
+                        nameError.textContent =
+                            "Please enter your full name.";
+
+                    }
+
+                    valid = false;
+
+                }
+
+// SANDHU
+
+
+                /* EMAIL */
+
+                const emailPattern =
+                    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+                if (
+                    emailInput &&
+                    !emailPattern.test(
+                        emailInput.value.trim()
+                    )
+                ) {
+
+                    const emailError =
+                        document.getElementById(
+                            "emailError"
+                        );
+
+                    if (emailError) {
+
+                        emailError.textContent =
+                            "Please enter a valid email address.";
+
+                    }
+
+                    valid = false;
+
+                }
+
+// SANDHU
+
+
+                /* MESSAGE */
+
+                if (
+                    messageInput &&
+                    messageInput.value.trim().length < 10
+                ) {
+
+                    const messageError =
+                        document.getElementById(
+                            "messageError"
+                        );
+
+                    if (messageError) {
+
+                        messageError.textContent =
+                            "Please enter at least 10 characters.";
+
+                    }
+
+                    valid = false;
+
+                }
+
+// SANDHU
+
+
+                /* CONSENT */
+
+                if (
+                    consentInput &&
+                    !consentInput.checked
+                ) {
+
+                    const consentError =
+                        document.getElementById(
+                            "consentError"
+                        );
+
+                    if (consentError) {
+
+                        consentError.textContent =
+                            "Please accept the consent.";
+
+                    }
+
+                    valid = false;
+
+                }
+
+
+                return valid;
+
+            }
+
+// SANDHU
+
+
+            /* =================================================
+               GENERATE REFERENCE ID
+            ================================================= */
+
+            function generateReferenceId() {
+
+                const year =
+                    new Date().getFullYear();
+
+
+                const randomNumber =
+                    Math.floor(
+                        100000 +
+                        Math.random() * 900000
+                    );
+
+
+                return `CM-${year}-${randomNumber}`;
+
+            }
+
+// SANDHU
+
+
+            /* =================================================
+               OPEN SUCCESS MODAL
+            ================================================= */
+
+            function openSuccessModal(
+                referenceId
+            ) {
+
+                if (
+                    !successModal ||
+                    !referenceIdElement
+                ) {
+
+                    return;
+
+                }
+
+
+                referenceIdElement.textContent =
+                    referenceId;
+
+
+                if (copySuccess) {
+
+                    copySuccess.classList.remove(
+                        "show"
+                    );
+
+                }
+
+
+                successModal.classList.add(
+                    "active"
+                );
+
+
+                successModal.setAttribute(
+                    "aria-hidden",
+                    "false"
+                );
+
+
+                document.body.style.overflow =
+                    "hidden";
+// SANDHU
+
+            }
+
+
+
+            /* =================================================
+               CLOSE SUCCESS MODAL
+            ================================================= */
+
+            function closeSuccessModal() {
+
+                if (!successModal) {
+
+                    return;
+
+                }
+
+
+                successModal.classList.remove(
+                    "active"
+                );
+
+
+                successModal.setAttribute(
+                    "aria-hidden",
+                    "true"
+                );
+
+
+                document.body.style.overflow =
+                    "";
+
+            }
+
+
+
+            /* =================================================
+               SUBMIT FORM
+            ================================================= */
+
+            if (form) {
+
+                form.addEventListener(
+                    "submit",
+                    function (event) {
+
+                        event.preventDefault();
+
+// SANDHU
+
+                        /* -----------------------------
+                           VALIDATION
+                        ----------------------------- */
+
+                        if (!validateForm()) {
+
+                            showToast(
+                                "Please complete the required fields."
+                            );
+
+                            return;
+
+                        }
+
+
+                        /* -----------------------------
+                           BUTTON LOADING
+                        ----------------------------- */
+
+                        if (submitButton) {
+
+                            submitButton.disabled =
+                                true;
+
+                        }
+
+
+                        if (submitText) {
+
+                            submitText.textContent =
+                                "Submitting...";
+
+                        }
+
+// SANDHU
+
+                        /* -----------------------------
+                           SHORT SUBMISSION DELAY
+                        ----------------------------- */
+
+                        setTimeout(
+                            function () {
+
+
+                                /* -------------------------
+                                   GENERATE REFERENCE
+                                ------------------------- */
+
+                                const referenceId =
+                                    generateReferenceId();
+
+
+                                const now =
+                                    new Date();
+
+
+// SANDHU
+
+                                /* -------------------------
+                                   REQUEST DATA
+                                ------------------------- */
+
+                                const requestData = {
+
+                                    referenceId:
+                                        referenceId,
+
+                                    name:
+                                        nameInput
+                                            ? nameInput.value.trim()
+                                            : "",
+
+                                    email:
+                                        emailInput
+                                            ? emailInput.value.trim()
+                                            : "",
+
+                                    phone:
+                                        phoneInput
+                                            ? phoneInput.value.trim()
+                                            : "",
+
+                                    message:
+                                        messageInput
+                                            ? messageInput.value.trim()
+                                            : "",
+
+                                    submittedAt:
+                                        now.toISOString()
+
+                                };
+
+
+
+                                /* -------------------------
+                                   SAVE LOCALLY
+                                ------------------------- */
+
+                                const existingRequests =
+                                    JSON.parse(
+                                        localStorage.getItem(
+                                            "cloudMeridianRequests"
+                                        ) || "[]"
+                                    );
+// SANDHU
+
+
+                                existingRequests.push(
+                                    requestData
+                                );
+
+
+                                localStorage.setItem(
+                                    "cloudMeridianRequests",
+                                    JSON.stringify(
+                                        existingRequests
+                                    )
+                                );
+
+
+
+                                /* -------------------------
+                                   RESET FORM
+                                ------------------------- */
+
+                                form.reset();
+
+
+                                if (counter) {
+
+                                    counter.textContent =
+                                        "0 / 1000";
+
+                                }
+// SANDHU
+
+
+
+                                /* -------------------------
+                                   OPEN SUCCESS POPUP
+                                ------------------------- */
+
+                                openSuccessModal(
+                                    referenceId
+                                );
+
+
+
+                                /* -------------------------
+                                   RESET BUTTON
+                                ------------------------- */
+
+                                if (submitButton) {
+
+                                    submitButton.disabled =
+                                        false;
+
+                                }
+// SANDHU
+
+
+                                if (submitText) {
+
+                                    submitText.textContent =
+                                        "Submit Message";
+
+                                }
+
+
+                                showToast(
+                                    "Your message has been submitted successfully!"
+                                );
+
+
+                            },
+                            800
+                        );
+
+                    }
+                );
+
+            }
+
+// SANDHU
+
+
+            /* =================================================
+               CLOSE SUCCESS MODAL
+            ================================================= */
+
+            if (successClose) {
+
+                successClose.addEventListener(
+                    "click",
+                    function () {
+
+                        closeSuccessModal();
+
+                    }
+                );
+
+            }
+
+
+
+            /* =================================================
+               CLICK OUTSIDE SUCCESS MODAL
+            ================================================= */
+
+            if (successModal) {
+
+                successModal.addEventListener(
+                    "click",
+                    function (event) {
+
+                        if (
+                            event.target ===
+                            successModal
+                        ) {
+
+                            closeSuccessModal();
+
+                        }
+
+                    }
+                );
+
+            }
+
+// SANDHU
+
+
+            /* =================================================
+               ESC KEY
+            ================================================= */
+
+            document.addEventListener(
+                "keydown",
+                function (event) {
+
+                    if (
+                        event.key === "Escape" &&
+                        successModal &&
+                        successModal.classList.contains(
+                            "active"
+                        )
+                    ) {
+
+                        closeSuccessModal();
+
+                    }
+
+                }
+            );
+
+// SANDHU
+
+
+            /* =================================================
+               COPY REFERENCE ID
+            ================================================= */
+
+            if (copyReference) {
+
+                copyReference.addEventListener(
+                    "click",
+                    async function () {
+
+                        if (
+                            !referenceIdElement
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        const reference =
+                            referenceIdElement.textContent;
+
+
+                        try {
+
+                            await navigator.clipboard.writeText(
+                                reference
+                            );
+// SANDHU
+
+
+                            if (copySuccess) {
+
+                                copySuccess.classList.add(
+                                    "show"
+                                );
+
+
+                                setTimeout(
+                                    function () {
+
+                                        copySuccess.classList.remove(
+                                            "show"
+                                        );
+
+                                    },
+                                    2500
+                                );
+
+                            }
+
+
+                            showToast(
+                                "Reference ID copied!"
+                            );
+
+                        }
+
+                        catch (error) {
+
+                            console.error(
+                                "Copy failed:",
+                                error
+                            );
+
+
+                            showToast(
+                                "Could not copy Reference ID."
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+// SANDHU
+
+
+
+            /* =================================================
+               SEND ANOTHER MESSAGE
+            ================================================= */
+
+            if (sendAnother) {
+
+                sendAnother.addEventListener(
+                    "click",
+                    function () {
+
+                        closeSuccessModal();
+
+
+                        if (form) {
+
+                            form.reset();
+
+                        }
+
+
+                        if (counter) {
+
+                            counter.textContent =
+                                "0 / 1000";
+
+                        }
+// SANDHU
+
+
+                        clearErrors();
+
+
+                        window.scrollTo({
+
+                            top: 0,
+
+                            behavior: "smooth"
+
+                        });
+
+                    }
+                );
+
+            }
+
+
+
+            /* =================================================
+               FAQ ACCORDION
+            ================================================= */
+
+            document
+                .querySelectorAll(".faq-question")
+                .forEach(
+                    function (button) {
+
+                        button.addEventListener(
+                            "click",
+                            function () {
+
+                                const item =
+                                    button.closest(
+                                        ".faq-item"
+                                    );
+
+// SANDHU
+
+                                const answer =
+                                    item.querySelector(
+                                        ".faq-answer"
+                                    );
+
+
+                                const isActive =
+                                    item.classList.contains(
+                                        "active"
+                                    );
+
+
+                                document
+                                    .querySelectorAll(
+                                        ".faq-item"
+                                    )
+                                    .forEach(
+                                        function (otherItem) {
+
+                                            otherItem.classList
+                                                .remove(
+                                                    "active"
+                                                );
+
+
+                                            const otherAnswer =
+                                                otherItem.querySelector(
+                                                    ".faq-answer"
+                                                );
+
+
+                                            if (otherAnswer) {
+
+                                                otherAnswer
+                                                    .style
+                                                    .maxHeight =
+                                                    null;
+
+                                            }
+
+                                        }
+                                    );
+// SANDHU
+
+
+                                if (!isActive) {
+
+                                    item.classList.add(
+                                        "active"
+                                    );
+
+
+                                    answer.style.maxHeight =
+                                        answer.scrollHeight +
+                                        "px";
+
+                                }
+
+                            }
+                        );
+
+                    }
+                );
+
+
+
+            /* =================================================
+               TOAST
+            ================================================= */
+
+            function showToast(
+                message
+            ) {
+
+                const toast =
+                    document.getElementById(
+                        "toast"
+                    );
+
+
+                if (!toast) {
+
+                    return;
+
+                }
+// SANDHU
+
+                toast.textContent =
+                    message;
+
+
+                toast.classList.add(
+                    "show"
+                );
+
+
+                setTimeout(
+                    function () {
+
+                        toast.classList.remove(
+                            "show"
+                        );
+
+                    },
+                    3000
+                );
+
+            }
+
+        }
+    );
+// <!-- SANDHU JI  -->
+</script>
+
+</body>
+
+</html>

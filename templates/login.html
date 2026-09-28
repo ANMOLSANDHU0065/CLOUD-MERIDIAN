@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- SANDHU JI  -->
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Login | Cloud Meridian</title>
+
+<!-- SANDHU JI  -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+
+<body>
+<!-- SANDHU JI  -->
+
+<header class="main-header">
+
+    <div class="container nav-container">
+
+        <a
+            href="/"
+            class="brand"
+        >
+
+            <span class="brand-icon">
+
+                <i class="fa-solid fa-cloud-sun"></i>
+
+            </span>
+
+            <span>
+                Cloud <strong>Meridian</strong>
+            </span>
+
+        </a>
+
+
+        <div class="header-actions">
+<!-- SANDHU JI  -->
+            <a
+                href="/"
+                class="nav-link"
+            >
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Dashboard
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="auth-page">
+
+    <div class="container">
+
+        <div class="auth-layout">
+
+
+            <div class="auth-intro">
+
+                <span class="hero-badge">
+                    <span class="pulse-dot"></span>
+                    Cloud Meridian Account
+                </span>
+
+<!-- SANDHU JI  -->
+                <h1>
+                    Welcome back to
+                    <span style="color:#dc7650;">
+                        Cloud Meridian.
+                    </span>
+                </h1>
+
+
+                <p>
+                    Login to your Cloud Meridian account
+                    and continue exploring weather across
+                    Indian cities.
+                </p>
+
+<!-- SANDHU JI  -->
+                <div class="auth-benefits">
+
+                    <div class="auth-benefit">
+                        <i class="fa-solid fa-check"></i>
+                        Save your account securely
+                    </div>
+
+                    <div class="auth-benefit">
+                        <i class="fa-solid fa-check"></i>
+                        Access your dashboard
+                    </div>
+
+                    <div class="auth-benefit">
+                        <i class="fa-solid fa-check"></i>
+                        Explore Indian cities
+                    </div>
+
+                </div>
+
+            </div>
+
+<!-- SANDHU JI  -->
+            <div class="auth-card">
+
+                <h2>
+                    Login
+                </h2>
+
+                <p class="auth-subtitle">
+                    Enter your account details.
+                </p>
+
+
+                <div
+                    id="authMessage"
+                    class="form-message"
+                ></div>
+
+
+                <form id="loginForm">
+
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-regular fa-envelope"></i>
+
+                            <input
+                                class="form-input"
+                                type="email"
+                                id="email"
+                                placeholder="you@example.com"
+                                required
+                            >
+<!-- SANDHU JI  -->
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                            <input
+                                class="form-input"
+                                type="password"
+                                id="password"
+                                placeholder="Enter password"
+                                required
+                            >
+<!-- SANDHU JI  -->
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-target="password"
+                            >
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="primary-btn"
+                        type="submit"
+                    >
+
+                        <i class="fa-solid fa-right-to-bracket"></i>
+
+                        Login
+
+                    </button>
+
+
+                </form>
+
+
+                <p class="auth-footer-text">
+
+                    Don't have an account?
+
+                    <a href="/signup">
+                        Create Account
+                    </a>
+
+                </p>
+
+<!-- SANDHU JI  -->
+                <p class="auth-footer-text">
+
+                    Need help?
+
+                    <a href="get-in-touch">
+                        Help Center
+                    </a>
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+<!-- SANDHU JI  -->
+
+<script
+    src="{{ url_for('static', filename='js/auth.js') }}"
+></script>
+
+</body>
+
+</html>
+
+
+
+<!--  SANDHU JI  -->
