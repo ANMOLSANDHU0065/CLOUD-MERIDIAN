@@ -1,0 +1,8 @@
+# GitHub Linguist configuration
+
+# Exclude frontend files from language statistics
+templates/** linguist-documentation
+static/** linguist-documentation
+
+# Keep Python as the main detectable source language
+app.py linguist-detectable
