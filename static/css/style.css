@@ -76,15 +76,15 @@ body.dark-mode {
 
     --surface-soft: #2a2825;
 
-    --text: #120f0c;
+    --text: #f5f2ef;
 
-    --text-soft: #726254;
+    --text-soft: #f5f2ef;
 
     --muted: #fefefe;
 
-    --border: #3b3733;
+    --border: #57493b;
 
-    --border-strong: #4b4641;
+    --border-strong: #a16e3c;
 /* SANDHU */
     --shadow:
         0 18px 50px rgba(0, 0, 0, 0.28);
