@@ -2,9 +2,13 @@ from flask import Flask, render_template, request, jsonify, session, redirect, u
 from werkzeug.security import generate_password_hash, check_password_hash
 from pathlib import Path
 import requests
+import os
 import json
 from datetime import datetime, timezone
 import time
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # SANDHU
 app = Flask(__name__)
@@ -19,8 +23,17 @@ CITIES_FILE = DATA_DIR / "cities.json"
 USERS_FILE = DATA_DIR / "users.json"
 CONTACTS_FILE = DATA_DIR / "contacts.json"
 
-OPEN_METEO_FORECAST = "https://api.open-meteo.com/v1/forecast"
-OPEN_METEO_GEOCODING = "https://geocoding-api.open-meteo.com/v1/search"
+
+
+OPENWEATHER_CURRENT = "https://api.openweathermap.org/data/2.5/weather"
+OPENWEATHER_FORECAST = "https://api.openweathermap.org/data/2.5/forecast"
+OPENWEATHER_GEOCODING = "https://api.openweathermap.org/geo/1.0/direct"
+
+OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY", "").strip()
+
+
+
+
 
 # Weather cache
 WEATHER_CACHE = {}
@@ -131,7 +144,6 @@ def api_states():
     })
 
     return jsonify(states)
-
 # SANDHU
 # =========================================================
 # CITY SEARCH
@@ -140,262 +152,428 @@ def api_states():
 @app.get("/api/search")
 def search_city():
 
-    query = request.args.get(
-        "q",
-        ""
-    ).strip()
+    query = request.args.get("q", "").strip()
 
     if len(query) < 2:
         return jsonify([])
 
+    formatted = []
+    seen = set()
+
+    # Search local cities.json first
     try:
+        cities = get_cities()
+        if isinstance(cities, list):
+            query_lower = query.lower()
 
-        response = requests.get(
-            OPEN_METEO_GEOCODING,
-            params={
-                "name": query,
-                "count": 12,
-                "language": "en",
-                "format": "json",
-                "countryCode": "IN"
-            },
-            timeout=10
-        )
+            for city in cities:
+                if not isinstance(city, dict):
+                    continue
 
-        response.raise_for_status()
+                name = str(city.get("name", "")).strip()
+                state = str(city.get("state", "")).strip()
 
-        results = response.json().get(
-            "results",
-            []
-        )
-# SANDHU
-        formatted = []
+                if not name:
+                    continue
 
-        seen = set()
+                if query_lower not in name.lower() and query_lower not in state.lower():
+                    continue
 
-        for item in results:
+                latitude = city.get("latitude", city.get("lat"))
+                longitude = city.get("longitude", city.get("lon"))
 
-            latitude = item.get("latitude")
-            longitude = item.get("longitude")
+                try:
+                    latitude = float(latitude)
+                    longitude = float(longitude)
+                except (TypeError, ValueError):
+                    continue
 
-            key = (
-                round(latitude or 0, 4),
-                round(longitude or 0, 4)
+                key = (round(latitude, 4), round(longitude, 4))
+                if key in seen:
+                    continue
+
+                seen.add(key)
+                formatted.append({
+                    "name": name,
+                    "state": state or "India",
+                    "country": "IN",
+                    "latitude": latitude,
+                    "longitude": longitude,
+                    "timezone": "Asia/Kolkata"
+                })
+
+    except Exception as error:
+        print("Local city search failed:", error)
+
+    # Search OpenWeather as well
+    if OPENWEATHER_API_KEY:
+        try:
+            response = requests.get(
+                OPENWEATHER_GEOCODING,
+                params={
+                    "q": f"{query},IN",
+                    "limit": 12,
+                    "appid": OPENWEATHER_API_KEY
+                },
+                timeout=10
             )
 
-            if key in seen:
-                continue
+            response.raise_for_status()
+            results = response.json()
 
-            seen.add(key)
+            if isinstance(results, list):
+                for item in results:
+                    latitude = item.get("lat")
+                    longitude = item.get("lon")
 
-            formatted.append({
-                "name": item.get(
-                    "name",
-                    query
-                ),
+                    if latitude is None or longitude is None:
+                        continue
 
-                "state": item.get(
-                    "admin1",
-                    "India"
-                ),
+                    if item.get("country", "IN") != "IN":
+                        continue
 
-                "country": item.get(
-                    "country",
-                    "India"
-                ),
+                    latitude = float(latitude)
+                    longitude = float(longitude)
+                    key = (round(latitude, 4), round(longitude, 4))
 
-                "latitude": latitude,
-                "longitude": longitude,
+                    if key in seen:
+                        continue
 
-                "timezone": item.get(
-                    "timezone",
-                    "Asia/Kolkata"
-                )
-            })
+                    seen.add(key)
+                    formatted.append({
+                        "name": item.get("name", query),
+                        "state": item.get("state", "India"),
+                        "country": "IN",
+                        "latitude": latitude,
+                        "longitude": longitude,
+                        "timezone": "Asia/Kolkata"
+                    })
 
-        return jsonify(formatted)
+        except (requests.RequestException, ValueError) as error:
+            print("OpenWeather location search failed:", error)
 
-    except requests.RequestException as error:
-
-        return jsonify({
-            "error": f"Location search failed: {error}"
-        }), 502
-# SANDHU
+    return jsonify(formatted[:12])
 
 # =========================================================
 # WEATHER API
 # =========================================================
 
+def openweather_code_to_wmo(code):
+
+    if 200 <= code <= 232:
+        return 95
+
+    if 300 <= code <= 321:
+        return 51
+
+    if 500 <= code <= 504:
+        if code == 500:
+            return 61
+        if code in (501, 502):
+            return 63
+        return 65
+
+    if 600 <= code <= 622:
+        return 73
+
+    if 701 <= code <= 781:
+        return 45
+
+    if code == 800:
+        return 0
+
+    if code == 801:
+        return 1
+
+    if code == 802:
+        return 2
+
+    if code in (803, 804):
+        return 3
+
+    return 3
+
+
 @app.get("/api/weather")
 def weather():
 
-    latitude = request.args.get(
-        "lat",
-        type=float
-    )
-
-    longitude = request.args.get(
-        "lon",
-        type=float
-    )
+    latitude = request.args.get("lat", type=float)
+    longitude = request.args.get("lon", type=float)
 
     if latitude is None or longitude is None:
-
         return jsonify({
             "error": "Latitude and longitude are required."
         }), 400
 
-    # ---------------------------------------------------------
-    # CACHE KEY
-    # ---------------------------------------------------------
+    if not OPENWEATHER_API_KEY:
+        return jsonify({
+            "error": "OpenWeather API key is not configured on the server."
+        }), 500
 
     cache_key = (
         round(latitude, 4),
         round(longitude, 4)
     )
 
-    # ---------------------------------------------------------
-    # RETURN CACHED WEATHER IF AVAILABLE
-    # ---------------------------------------------------------
-
     cached = WEATHER_CACHE.get(cache_key)
 
     if cached:
-
         cached_data, cached_time = cached
-
         if time.time() - cached_time < WEATHER_CACHE_TTL:
-
             return jsonify(cached_data)
-
-    # ---------------------------------------------------------
-    # OPEN-METEO REQUEST
-    # ---------------------------------------------------------
-
-    params = {
-
-        "latitude": latitude,
-
-        "longitude": longitude,
-
-        "current": ",".join([
-
-            "temperature_2m",
-
-            "relative_humidity_2m",
-
-            "apparent_temperature",
-
-            "is_day",
-
-            "precipitation",
-
-            "rain",
-
-            "weather_code",
-
-            "cloud_cover",
-
-            "pressure_msl",
-
-            "surface_pressure",
-
-            "wind_speed_10m",
-
-            "wind_direction_10m",
-
-            "wind_gusts_10m"
-        ]),
-
-        "hourly": ",".join([
-
-            "visibility",
-
-            "temperature_2m",
-
-            "apparent_temperature",
-
-            "precipitation_probability",
-
-            "precipitation",
-
-            "relative_humidity_2m",
-
-            "cloud_cover",
-
-            "weather_code",
-
-            "wind_speed_10m"
-        ]),
-
-        "daily": ",".join([
-
-            "weather_code",
-
-            "temperature_2m_max",
-
-            "temperature_2m_min",
-
-            "apparent_temperature_max",
-
-            "apparent_temperature_min",
-
-            "sunrise",
-
-            "sunset",
-
-            "uv_index_max",
-
-            "precipitation_sum",
-
-            "precipitation_probability_max",
-
-            "wind_speed_10m_max"
-        ]),
-
-        "forecast_days": 7,
-
-        "timezone": "auto",
-
-        "temperature_unit": "celsius",
-
-        "wind_speed_unit": "kmh",
-
-        "precipitation_unit": "mm"
-    }
 
     try:
 
-        response = requests.get(
-            OPEN_METEO_FORECAST,
-            params=params,
-            timeout=20
+        current_response = requests.get(
+            OPENWEATHER_CURRENT,
+            params={
+                "lat": latitude,
+                "lon": longitude,
+                "appid": OPENWEATHER_API_KEY,
+                "units": "metric"
+            },
+            timeout=12
         )
 
-        # -----------------------------------------------------
-        # HANDLE RATE LIMIT
-        # -----------------------------------------------------
+        forecast_response = requests.get(
+            OPENWEATHER_FORECAST,
+            params={
+                "lat": latitude,
+                "lon": longitude,
+                "appid": OPENWEATHER_API_KEY,
+                "units": "metric"
+            },
+            timeout=12
+        )
 
-        if response.status_code == 429:
-
-            # If old cached data exists, use it
+        if current_response.status_code == 429 or forecast_response.status_code == 429:
             if cached:
-
                 cached_data, cached_time = cached
-
                 return jsonify(cached_data)
 
             return jsonify({
-                "error": "Weather service is temporarily busy. Please try again in a minute."
+                "error": "OpenWeather rate limit reached. Please try again shortly."
             }), 429
 
-        response.raise_for_status()
+        if current_response.status_code == 401 or forecast_response.status_code == 401:
+            return jsonify({
+                "error": "OpenWeather API key is not active yet. Please wait for activation."
+            }), 401
 
-        weather_data = response.json()
+        current_response.raise_for_status()
+        forecast_response.raise_for_status()
 
-        # -----------------------------------------------------
-        # SAVE RESPONSE IN CACHE
-        # -----------------------------------------------------
+        current = current_response.json()
+        forecast = forecast_response.json()
+        forecast_list = forecast.get("list", [])
+
+        current_weather = current.get("weather", [{}])[0]
+        current_dt = current.get("dt", int(time.time()))
+
+        current_data = {
+            "time": datetime.fromtimestamp(
+                current_dt,
+                timezone.utc
+            ).isoformat(),
+            "temperature_2m": current.get("main", {}).get("temp"),
+            "relative_humidity_2m": current.get("main", {}).get("humidity"),
+            "apparent_temperature": current.get("main", {}).get("feels_like"),
+            "is_day": 1 if "d" in current_weather.get("icon", "") else 0,
+            "precipitation": current.get("rain", {}).get(
+                "1h",
+                current.get("snow", {}).get("1h", 0)
+            ),
+            "rain": current.get("rain", {}).get("1h", 0),
+            "weather_code": openweather_code_to_wmo(
+                current_weather.get("id", 800)
+            ),
+            "cloud_cover": current.get("clouds", {}).get("all"),
+            "pressure_msl": current.get("main", {}).get("pressure"),
+            "surface_pressure": current.get("main", {}).get("pressure"),
+            "wind_speed_10m": (
+                current.get("wind", {}).get("speed", 0) * 3.6
+            ),
+            "wind_direction_10m": current.get("wind", {}).get("deg", 0),
+            "wind_gusts_10m": (
+                current.get("wind", {}).get("gust", 0) * 3.6
+            )
+        }
+
+        hourly = {
+            "time": [],
+            "visibility": [],
+            "temperature_2m": [],
+            "apparent_temperature": [],
+            "precipitation_probability": [],
+            "precipitation": [],
+            "relative_humidity_2m": [],
+            "cloud_cover": [],
+            "weather_code": [],
+            "wind_speed_10m": []
+        }
+
+        for item in forecast_list:
+
+            main = item.get("main", {})
+            weather_item = item.get("weather", [{}])[0]
+            rain = item.get("rain", {}).get(
+                "3h",
+                item.get("snow", {}).get("3h", 0)
+            )
+
+            hourly["time"].append(
+                item.get("dt_txt") or datetime.fromtimestamp(
+                    item.get("dt", current_dt),
+                    timezone.utc
+                ).isoformat()
+            )
+            hourly["visibility"].append(item.get("visibility", 10000))
+            hourly["temperature_2m"].append(main.get("temp"))
+            hourly["apparent_temperature"].append(main.get("feels_like"))
+            hourly["precipitation_probability"].append(
+                round(item.get("pop", 0) * 100)
+            )
+            hourly["precipitation"].append(rain)
+            hourly["relative_humidity_2m"].append(main.get("humidity"))
+            hourly["cloud_cover"].append(
+                item.get("clouds", {}).get("all")
+            )
+            hourly["weather_code"].append(
+                openweather_code_to_wmo(
+                    weather_item.get("id", 800)
+                )
+            )
+            hourly["wind_speed_10m"].append(
+                item.get("wind", {}).get("speed", 0) * 3.6
+            )
+
+        daily = {
+            "time": [],
+            "weather_code": [],
+            "temperature_2m_max": [],
+            "temperature_2m_min": [],
+            "apparent_temperature_max": [],
+            "apparent_temperature_min": [],
+            "sunrise": [],
+            "sunset": [],
+            "uv_index_max": [],
+            "precipitation_sum": [],
+            "precipitation_probability_max": [],
+            "wind_speed_10m_max": []
+        }
+
+        grouped = {}
+
+        for item in forecast_list:
+
+            date_key = item.get("dt_txt", "")[:10]
+
+            if not date_key:
+                continue
+
+            grouped.setdefault(date_key, []).append(item)
+
+        for date_key, items in list(grouped.items())[:5]:
+
+            temps = [
+                item.get("main", {}).get("temp")
+                for item in items
+                if item.get("main", {}).get("temp") is not None
+            ]
+
+            feels = [
+                item.get("main", {}).get("feels_like")
+                for item in items
+                if item.get("main", {}).get("feels_like") is not None
+            ]
+
+            rain_total = sum(
+                item.get("rain", {}).get(
+                    "3h",
+                    item.get("snow", {}).get("3h", 0)
+                )
+                for item in items
+            )
+
+            pop_max = max(
+                [item.get("pop", 0) * 100 for item in items],
+                default=0
+            )
+
+            wind_max = max(
+                [
+                    item.get("wind", {}).get("speed", 0) * 3.6
+                    for item in items
+                ],
+                default=0
+            )
+
+            weather_id = items[len(items) // 2].get(
+                "weather",
+                [{}]
+            )[0].get("id", 800)
+
+            daily["time"].append(date_key)
+            daily["weather_code"].append(
+                openweather_code_to_wmo(weather_id)
+            )
+            daily["temperature_2m_max"].append(max(temps) if temps else None)
+            daily["temperature_2m_min"].append(min(temps) if temps else None)
+            daily["apparent_temperature_max"].append(
+                max(feels) if feels else None
+            )
+            daily["apparent_temperature_min"].append(
+                min(feels) if feels else None
+            )
+            # Frontend expects Open-Meteo-style ISO date strings here.
+            # OpenWeather returns Unix timestamps, so convert them first.
+            sunrise_ts = current.get("sys", {}).get("sunrise")
+            sunset_ts = current.get("sys", {}).get("sunset")
+
+            daily["sunrise"].append(
+                datetime.fromtimestamp(
+                    sunrise_ts,
+                    timezone.utc
+                ).isoformat() if sunrise_ts else ""
+            )
+
+            daily["sunset"].append(
+                datetime.fromtimestamp(
+                    sunset_ts,
+                    timezone.utc
+                ).isoformat() if sunset_ts else ""
+            )
+            daily["uv_index_max"].append(None)
+            daily["precipitation_sum"].append(rain_total)
+            daily["precipitation_probability_max"].append(pop_max)
+            daily["wind_speed_10m_max"].append(wind_max)
+
+        # Keep the existing 7-day forecast structure for the UI.
+        # OpenWeather 2.5 supplies up to 5 actual forecast days;
+        # the remaining slots stay empty instead of inventing weather data.
+        while len(daily["time"]) < 7:
+            daily["time"].append("")
+            daily["weather_code"].append(None)
+            daily["temperature_2m_max"].append(None)
+            daily["temperature_2m_min"].append(None)
+            daily["apparent_temperature_max"].append(None)
+            daily["apparent_temperature_min"].append(None)
+            daily["sunrise"].append("")
+            daily["sunset"].append("")
+            daily["uv_index_max"].append(None)
+            daily["precipitation_sum"].append(None)
+            daily["precipitation_probability_max"].append(None)
+            daily["wind_speed_10m_max"].append(None)
+
+
+        weather_data = {
+            "latitude": latitude,
+            "longitude": longitude,
+            "timezone": "Asia/Kolkata",
+            "current": current_data,
+            "hourly": hourly,
+            "daily": daily
+        }
 
         WEATHER_CACHE[cache_key] = (
             weather_data,
@@ -404,21 +582,16 @@ def weather():
 
         return jsonify(weather_data)
 
-    except requests.RequestException as error:
-
-        # -----------------------------------------------------
-        # FALLBACK TO OLD CACHE
-        # -----------------------------------------------------
+    except requests.RequestException:
 
         if cached:
-
             cached_data, cached_time = cached
-
             return jsonify(cached_data)
 
         return jsonify({
-            "error": f"Weather service is temporarily unavailable. Please try again shortly."
+            "error": "OpenWeather service is temporarily unavailable. Please try again shortly."
         }), 502
+
 
 # SANDHU
 # =========================================================

@@ -1148,27 +1148,21 @@ function formatTemperature(
 
 }
 
-
 /* =========================================================
    LOCAL TIME
 ========================================================= */
 
-function updateLocalTime(
-    apiTime
-) {
+function updateLocalTime(apiTime) {
 
     if (!apiTime) return;
 
+    const safeTime = String(apiTime);
 
-    const time =
-        apiTime.includes("T")
-            ? apiTime.split("T")[1]
-            : apiTime;
+    const time = safeTime.includes("T")
+        ? safeTime.split("T")[1]
+        : safeTime;
 
-
-    const cleanTime =
-        time.slice(0, 5);
-
+    const cleanTime = String(time || "").substring(0, 5);
 
     setText(
         "localTime",
@@ -1176,7 +1170,6 @@ function updateLocalTime(
     );
 
 }
-
 
 /* =========================================================
    HOURLY CHART
@@ -1226,36 +1219,25 @@ function createHourlyChart(
 
     }
 
+const times = Array.isArray(hourly?.time)
+    ? hourly.time.slice(startIndex, startIndex + 24)
+    : [];
 
-    const times =
-        hourly.time.slice(
-            startIndex,
-            startIndex + 24
-        );
+const temperatures = Array.isArray(hourly?.temperature_2m)
+    ? hourly.temperature_2m.slice(startIndex, startIndex + 24)
+    : [];
 
+const rain = Array.isArray(hourly?.precipitation_probability)
+    ? hourly.precipitation_probability.slice(startIndex, startIndex + 24)
+    : [];
 
-    const temperatures =
-        hourly.temperature_2m.slice(
-            startIndex,
-            startIndex + 24
-        );
+const labels = times.map(time => {
+    const safeTime = String(time || "");
+    const parts = safeTime.split("T");
+    const timePart = parts[1] || parts[0] || "";
 
-
-    const rain =
-        hourly.precipitation_probability?.slice(
-            startIndex,
-            startIndex + 24
-        ) || [];
-
-
-    const labels =
-        times.map(
-            time =>
-                time
-                    .split("T")[1]
-                    .slice(0, 5)
-        );
-
+    return timePart.substring(0, 5);
+});
 
     state.chart =
         new Chart(
@@ -1397,7 +1379,7 @@ function createHourlyChart(
 
 
 /* =========================================================
-   7 DAY FORECAST
+   5 DAY FORECAST
 ========================================================= */
 
 function renderForecast(
@@ -1633,25 +1615,19 @@ function calculateDayProgress(
 /* =========================================================
    FORMAT TIME
 ========================================================= */
-
-function formatTime(
-    value
-) {
+function formatTime(value) {
 
     if (!value) return "--";
 
+    const safeValue = String(value);
 
-    const time =
-        value
-            .split("T")[1]
-            ?.slice(0, 5);
-
+    const parts = safeValue.split("T");
+    const time = parts[1]
+        ? parts[1].substring(0, 5)
+        : "";
 
     return time || "--";
-
 }
-
-
 /* =========================================================
    WIND DIRECTION
 ========================================================= */
@@ -1894,136 +1870,98 @@ async function searchCities(
 
 }
 
-
 /* =========================================================
    SEARCH RESULTS
 ========================================================= */
 
-function renderSearchResults(
-    results
-) {
+function renderSearchResults(results) {
 
     if (!searchResults) return;
 
-
     searchResults.innerHTML = "";
 
+    const safeResults = Array.isArray(results)
+        ? results
+        : [];
 
-    if (!results.length) {
+    if (!safeResults.length) {
 
         searchResults.innerHTML = `
-
             <div class="search-empty">
-
                 <i class="fa-solid fa-location-dot"></i>
-
                 No Indian city found.
-
             </div>
-
         `;
 
-        searchResults.classList.add(
-            "show"
-        );
+        searchResults.classList.add("show");
 
         return;
-
     }
 
-
-    results
+    safeResults
         .slice(0, 8)
-        .forEach(
-            result => {
+        .forEach(result => {
 
-                const button =
-                    document.createElement(
-                        "button"
+            const button = document.createElement("button");
+
+            button.type = "button";
+
+            button.className =
+                "search-result-item";
+
+            button.innerHTML = `
+
+                <span class="result-icon">
+                    <i class="fa-solid fa-location-dot"></i>
+                </span>
+
+                <span>
+
+                    <span class="result-name">
+                        ${escapeHTML(
+                            result.name || "Unknown City"
+                        )}
+                    </span>
+
+                    <span class="result-location">
+                        ${escapeHTML(
+                            result.state || "India"
+                        )},
+                        India
+                    </span>
+
+                </span>
+
+            `;
+
+            button.addEventListener(
+                "click",
+                async () => {
+
+                    citySearch.value =
+                        result.name;
+
+                    clearSearch.style.display =
+                        "block";
+
+                    hideSearchResults();
+
+                    await loadWeather(
+                        result.latitude,
+                        result.longitude,
+                        result.name,
+                        result.state || "India"
                     );
 
+                }
+            );
 
-                button.type =
-                    "button";
+            searchResults.appendChild(button);
 
+        });
 
-                button.className =
-                    "search-result-item";
-
-
-                button.innerHTML = `
-
-                    <span class="result-icon">
-
-                        <i class="fa-solid fa-location-dot"></i>
-
-                    </span>
-
-                    <span>
-
-                        <span class="result-name">
-                            ${escapeHTML(
-                                result.name
-                            )}
-                        </span>
-
-                        <span class="result-location">
-                            ${escapeHTML(
-                                result.state ||
-                                "India"
-                            )},
-                            India
-                        </span>
-
-                    </span>
-
-                `;
-
-
-                button.addEventListener(
-                    "click",
-                    async () => {
-
-                        citySearch.value =
-                            result.name;
-
-                        clearSearch.style.display =
-                            "block";
-
-                        hideSearchResults();
-
-
-                        await loadWeather(
-
-                            result.latitude,
-
-                            result.longitude,
-
-                            result.name,
-
-                            result.state ||
-                                "India"
-
-                        );
-
-                    }
-                );
-
-
-                searchResults.appendChild(
-                    button
-                );
-
-            }
-        );
-
-
-    searchResults.classList.add(
-        "show"
-    );
-
+    searchResults.classList.add("show");
 }
-// SANDHU
 
 /* =========================================================
    SEARCH BUTTON
@@ -2180,13 +2118,14 @@ function renderCities() {
     // Clear old city cards
     citiesGrid.innerHTML = "";
 
+const safeCities = Array.isArray(state.cities)
+    ? state.cities
+    : [];
 
-    // Show 12 cities initially
-    // Show all 140 cities when button is clicked
-    const cities =
-        state.showAllCities
-            ? state.cities
-            : state.cities.slice(0, 12);
+const cities =
+    state.showAllCities
+        ? safeCities
+        : safeCities.slice(0, 12);
 
 
     cities.forEach(city => {

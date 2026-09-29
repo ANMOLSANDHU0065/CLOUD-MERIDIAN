@@ -76,11 +76,11 @@ body.dark-mode {
 
     --surface-soft: #2a2825;
 
-    --text: #f6f2ee;
+    --text: #120f0c;
 
-    --text-soft: #c8c0b9;
+    --text-soft: #726254;
 
-    --muted: #99918a;
+    --muted: #fefefe;
 
     --border: #3b3733;
 
@@ -108,7 +108,7 @@ body.dark-mode {
     box-sizing: border-box;
 
 }
-/* SANDHU
+
 html {
 
     scroll-behavior: smooth;
