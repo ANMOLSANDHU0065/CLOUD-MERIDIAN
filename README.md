@@ -2,8 +2,10 @@
 > A modern and responsive weather dashboard built with Flask, JavaScript, and the OpenWeather API.
 Cloud Meridian is a full-stack weather web application that provides real-time weather information, city search, forecasts, and a clean responsive interface with Light and Dark Mode support.
 
+
 ## 🚀 Live Demo
-🌐 **Live Website:** https://cloud-meridian.onrender.com
+🌐 [**Cloud Meridian – Live Demo**](https://cloud-meridian.onrender.com)
+
 
 ## ✨ Features
 
